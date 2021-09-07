@@ -1,5 +1,30 @@
-"""Constants for integration_blueprint tests."""
-from custom_components.integration_blueprint.const import CONF_PASSWORD, CONF_USERNAME
+"""Constants for here_weather tests."""
+import json
 
-# Mock config data to be used across multiple tests
-MOCK_CONFIG = {CONF_USERNAME: "test_username", CONF_PASSWORD: "test_password"}
+import herepy
+from pytest_homeassistant_custom_component.common import load_fixture
+
+daily_simple_forecasts_response = herepy.DestinationWeatherResponse.new_from_jsondict(
+    json.loads(load_fixture("daily_simple_forecasts.json")),
+    param_defaults={"dailyForecasts": None},
+)
+
+astronomy_response = herepy.DestinationWeatherResponse.new_from_jsondict(
+    json.loads(load_fixture("astronomy.json")),
+    param_defaults={"astronomy": None},
+)
+
+hourly_response = herepy.DestinationWeatherResponse.new_from_jsondict(
+    json.loads(load_fixture("hourly.json")),
+    param_defaults={"hourlyForecasts": None},
+)
+
+observation_response = herepy.DestinationWeatherResponse.new_from_jsondict(
+    json.loads(load_fixture("observation.json")),
+    param_defaults={"observations": None},
+)
+
+daily_response = herepy.DestinationWeatherResponse.new_from_jsondict(
+    json.loads(load_fixture("daily.json")),
+    param_defaults={"forecasts": None},
+)
