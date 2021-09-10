@@ -3,7 +3,9 @@ import json
 
 from pytest_homeassistant_custom_component.common import load_fixture
 
-daily_simple_forecasts_response = json.loads(load_fixture("daily_simple_forecasts.json"))
+daily_simple_forecasts_response = json.loads(
+    load_fixture("daily_simple_forecasts.json")
+)
 
 astronomy_response = json.loads(load_fixture("astronomy.json"))
 

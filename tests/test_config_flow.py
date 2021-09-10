@@ -19,10 +19,7 @@ async def test_form(hass: HomeAssistant) -> None:
     assert result["type"] == "form"
     assert result["errors"] == {}
 
-    with patch(
-        "aiohere.AioHere.weather_for_coordinates",
-        return_value=None,
-    ), patch(
+    with patch("aiohere.AioHere.weather_for_coordinates", return_value=None,), patch(
         "custom_components.here_weather.async_setup_entry",
         return_value=True,
     ) as mock_setup_entry:

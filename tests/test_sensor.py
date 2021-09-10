@@ -2,7 +2,7 @@
 from datetime import timedelta
 from unittest.mock import patch
 
-import herepy
+import aiohere
 from homeassistant.const import (
     CONF_API_KEY,
     CONF_LATITUDE,
@@ -63,7 +63,7 @@ async def test_sensor_invalid_request(hass):
             assert sensor.state == "12.03"
         with patch(
             "aiohere.AioHere.weather_for_coordinates",
-            side_effect=herepy.InvalidRequestError("Invalid"),
+            side_effect=aiohere.HereInvalidRequestError("Invalid"),
         ):
             async_fire_time_changed(hass, utcnow + timedelta(DEFAULT_SCAN_INTERVAL * 2))
             await hass.async_block_till_done()
