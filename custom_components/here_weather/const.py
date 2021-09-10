@@ -17,7 +17,7 @@ from homeassistant.const import (
 
 NAME = "HERE Destination Weather"
 DOMAIN = "here_weather"
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 ISSUE_URL = "https://github.com/eifinger/hass-here-weather/issues"
 
 STARTUP_MESSAGE = f"""
@@ -32,11 +32,11 @@ If you have any issues with this you need to open an issue here:
 
 DEFAULT_SCAN_INTERVAL = 1800  # 30 minutes
 
-MODE_ASTRONOMY = "forecast_astronomy"
-MODE_HOURLY = "forecast_hourly"
-MODE_DAILY = "forecast_7days"
-MODE_DAILY_SIMPLE = "forecast_7days_simple"
-MODE_OBSERVATION = "observation"
+MODE_ASTRONOMY = "FORECAST_ASTRONOMY"
+MODE_HOURLY = "FORECAST_HOURLY"
+MODE_DAILY = "FORECAST_7DAYS"
+MODE_DAILY_SIMPLE = "FORECAST_7DAYS_SIMPLE"
+MODE_OBSERVATION = "OBSERVATION"
 CONF_MODES = [
     MODE_ASTRONOMY,
     MODE_HOURLY,

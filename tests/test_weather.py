@@ -13,7 +13,7 @@ from . import mock_weather_for_coordinates
 async def test_weather(hass):
     """Test that weather has a value."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         side_effect=mock_weather_for_coordinates,
     ):
         hass.config.units = IMPERIAL_SYSTEM
@@ -39,7 +39,7 @@ async def test_weather(hass):
 async def test_weather_daily(hass):
     """Test that weather has a value for mode daily."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         side_effect=mock_weather_for_coordinates,
     ):
         entry = MockConfigEntry(
@@ -75,7 +75,7 @@ async def test_weather_daily(hass):
 async def test_weather_observation(hass):
     """Test that weather has a value for mode observation."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         side_effect=mock_weather_for_coordinates,
     ):
         entry = MockConfigEntry(

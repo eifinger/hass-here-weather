@@ -1,7 +1,7 @@
 """Tests for the here_weather config_flow."""
 from unittest.mock import patch
 
-import herepy
+import aiohere
 from homeassistant import config_entries, setup
 from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
 from homeassistant.core import HomeAssistant
@@ -20,7 +20,7 @@ async def test_form(hass: HomeAssistant) -> None:
     assert result["errors"] == {}
 
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         return_value=None,
     ), patch(
         "custom_components.here_weather.async_setup_entry",
@@ -61,8 +61,8 @@ async def test_form(hass: HomeAssistant) -> None:
 async def test_unauthorized(hass):
     """Test handling of an unauthorized api key."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
-        side_effect=herepy.UnauthorizedError("Unauthorized"),
+        "aiohere.AioHere.weather_for_coordinates",
+        side_effect=aiohere.HereUnauthorizedError("Unauthorized"),
     ):
         result = await hass.config_entries.flow.async_init(
             DOMAIN, context={"source": "user"}
@@ -84,8 +84,8 @@ async def test_unauthorized(hass):
 async def test_invalid_request(hass):
     """Test handling of an invalid request."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
-        side_effect=herepy.InvalidRequestError("Invalid"),
+        "aiohere.AioHere.weather_for_coordinates",
+        side_effect=aiohere.HereInvalidRequestError("Invalid"),
     ):
         result = await hass.config_entries.flow.async_init(
             DOMAIN, context={"source": "user"}

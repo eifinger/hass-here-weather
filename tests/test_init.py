@@ -12,7 +12,7 @@ from . import mock_weather_for_coordinates
 async def test_unload_entry(hass):
     """Test unloading a config entry removes all entities."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         side_effect=mock_weather_for_coordinates,
     ):
         entry = MockConfigEntry(

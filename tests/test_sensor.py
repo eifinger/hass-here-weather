@@ -28,7 +28,7 @@ async def test_sensor_invalid_request(hass):
     # Patching 'utcnow' to gain more control over the timed update.
     with patch("homeassistant.util.dt.utcnow", return_value=utcnow):
         with patch(
-            "herepy.DestinationWeatherApi.weather_for_coordinates",
+            "aiohere.AioHere.weather_for_coordinates",
             side_effect=mock_weather_for_coordinates,
         ):
             entry = MockConfigEntry(
@@ -62,7 +62,7 @@ async def test_sensor_invalid_request(hass):
             )
             assert sensor.state == "12.03"
         with patch(
-            "herepy.DestinationWeatherApi.weather_for_coordinates",
+            "aiohere.AioHere.weather_for_coordinates",
             side_effect=herepy.InvalidRequestError("Invalid"),
         ):
             async_fire_time_changed(hass, utcnow + timedelta(DEFAULT_SCAN_INTERVAL * 2))
@@ -77,7 +77,7 @@ async def test_forecast_astronomy(hass):
     """Test that forecast_astronomy works."""
     # Patching 'utcnow' to gain more control over the timed update.
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         side_effect=mock_weather_for_coordinates,
     ):
         entry = MockConfigEntry(
@@ -113,7 +113,7 @@ async def test_forecast_astronomy(hass):
 async def test_imperial(hass):
     """Test that imperial mode works."""
     with patch(
-        "herepy.DestinationWeatherApi.weather_for_coordinates",
+        "aiohere.AioHere.weather_for_coordinates",
         side_effect=mock_weather_for_coordinates,
     ):
         hass.config.units = IMPERIAL_SYSTEM

@@ -1,10 +1,11 @@
 """Config flow for here_weather integration."""
 from __future__ import annotations
 
-import herepy
+import aiohere
 from homeassistant import config_entries
 from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
@@ -13,12 +14,12 @@ from .const import DEFAULT_MODE, DOMAIN
 
 async def async_validate_user_input(hass: HomeAssistant, user_input: dict) -> None:
     """Validate the user_input containing coordinates."""
-    here_client = herepy.DestinationWeatherApi(user_input[CONF_API_KEY])
-    await hass.async_add_executor_job(
-        here_client.weather_for_coordinates,
+    session = async_get_clientsession(hass)
+    here_client = aiohere.AioHere(user_input[CONF_API_KEY], session=session)
+    await here_client.weather_for_coordinates(
         user_input[CONF_LATITUDE],
         user_input[CONF_LONGITUDE],
-        herepy.WeatherProductType[DEFAULT_MODE],
+        aiohere.WeatherProductType[DEFAULT_MODE],
     )
 
 
@@ -35,9 +36,9 @@ class HereWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             self._abort_if_unique_id_configured()
             try:
                 await async_validate_user_input(self.hass, user_input)
-            except herepy.InvalidRequestError:
+            except aiohere.HereInvalidRequestError:
                 errors["base"] = "invalid_request"
-            except herepy.UnauthorizedError:
+            except aiohere.HereUnauthorizedError:
                 errors["base"] = "unauthorized"
             else:
                 return self.async_create_entry(

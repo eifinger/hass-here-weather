@@ -3,9 +3,10 @@ from __future__ import annotations
 
 from datetime import timedelta
 import logging
+from typing import Any
 
+import aiohere
 import async_timeout
-import herepy
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_API_KEY,
@@ -14,6 +15,7 @@ from homeassistant.const import (
     CONF_UNIT_SYSTEM_METRIC,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import CONF_MODES, DEFAULT_SCAN_INTERVAL, DOMAIN, STARTUP_MESSAGE
@@ -53,10 +55,11 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
     def __init__(self, hass: HomeAssistant, entry: ConfigEntry, mode: str) -> None:
         """Initialize the data object."""
-        self.here_client = herepy.DestinationWeatherApi(entry.data[CONF_API_KEY])
+        session = async_get_clientsession(hass)
+        self.here_client = aiohere.AioHere(entry.data[CONF_API_KEY], session=session)
         self.latitude = entry.data[CONF_LATITUDE]
         self.longitude = entry.data[CONF_LONGITUDE]
-        self.weather_product_type = herepy.WeatherProductType[mode]
+        self.weather_product_type = aiohere.WeatherProductType[mode]
 
         super().__init__(
             hass,
@@ -69,17 +72,17 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
         """Perform data update."""
         try:
             async with async_timeout.timeout(10):
-                data = await self.hass.async_add_executor_job(self._get_data)
+                data = await self._get_data()
                 return data
-        except herepy.InvalidRequestError as error:
+        except aiohere.HereError as error:
             raise UpdateFailed(
-                f"Unable to fetch data from HERE: {error.message}"
+                f"Unable to fetch data from HERE: {error.args[0]}"
             ) from error
 
-    def _get_data(self):
+    async def _get_data(self):
         """Get the latest data from HERE."""
         is_metric = self.hass.config.units.name == CONF_UNIT_SYSTEM_METRIC
-        data = self.here_client.weather_for_coordinates(
+        data = await self.here_client.weather_for_coordinates(
             self.latitude,
             self.longitude,
             self.weather_product_type,
@@ -91,18 +94,18 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
 
 def extract_data_from_payload_for_product_type(
-    data: herepy.DestinationWeatherResponse, product_type: herepy.WeatherProductType
+    data: dict[str, Any], product_type: aiohere.WeatherProductType
 ) -> list:
     """Extract the actual data from the HERE payload."""
-    if product_type == herepy.WeatherProductType.forecast_astronomy:
-        return data.astronomy["astronomy"]
-    if product_type == herepy.WeatherProductType.observation:
-        return data.observations["location"][0]["observation"]
-    if product_type == herepy.WeatherProductType.forecast_7days:
-        return data.forecasts["forecastLocation"]["forecast"]
-    if product_type == herepy.WeatherProductType.forecast_7days_simple:
-        return data.dailyForecasts["forecastLocation"]["forecast"]
-    if product_type == herepy.WeatherProductType.forecast_hourly:
-        return data.hourlyForecasts["forecastLocation"]["forecast"]
+    if product_type == aiohere.WeatherProductType.FORECAST_ASTRONOMY:
+        return data["astronomy"]["astronomy"]
+    if product_type == aiohere.WeatherProductType.OBSERVATION:
+        return data["observations"]["location"][0]["observation"]
+    if product_type == aiohere.WeatherProductType.FORECAST_7DAYS:
+        return data["forecasts"]["forecastLocation"]["forecast"]
+    if product_type == aiohere.WeatherProductType.FORECAST_7DAYS_SIMPLE:
+        return data["dailyForecasts"]["forecastLocation"]["forecast"]
+    if product_type == aiohere.WeatherProductType.FORECAST_HOURLY:
+        return data["hourlyForecasts"]["forecastLocation"]["forecast"]
     _LOGGER.debug("Payload malformed: %s", data)
     raise UpdateFailed("Payload malformed")
