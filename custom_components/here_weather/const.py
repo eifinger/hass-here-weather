@@ -17,7 +17,7 @@ from homeassistant.const import (
 
 NAME = "HERE Destination Weather"
 DOMAIN = "here_weather"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 ISSUE_URL = "https://github.com/eifinger/hass-here-weather/issues"
 
 STARTUP_MESSAGE = f"""
