@@ -17,7 +17,7 @@ from homeassistant.const import (
 
 NAME = "HERE Destination Weather"
 DOMAIN = "here_weather"
-VERSION = "1.0.3"
+VERSION = "2.0.0"
 ISSUE_URL = "https://github.com/eifinger/hass-here-weather/issues"
 
 STARTUP_MESSAGE = f"""
@@ -47,10 +47,26 @@ CONF_MODES = [
 DEFAULT_MODE = MODE_DAILY_SIMPLE
 
 ASTRONOMY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
-    "sunrise": {"name": "Sunrise", "unit_of_measurement": None, "device_class": None},
-    "sunset": {"name": "Sunset", "unit_of_measurement": None, "device_class": None},
-    "moonrise": {"name": "Moonrise", "unit_of_measurement": None, "device_class": None},
-    "moonset": {"name": "Moonset", "unit_of_measurement": None, "device_class": None},
+    "sunrise": {
+        "name": "Sunrise",
+        "unit_of_measurement": None,
+        "device_class": DEVICE_CLASS_TIMESTAMP,
+    },
+    "sunset": {
+        "name": "Sunset",
+        "unit_of_measurement": None,
+        "device_class": DEVICE_CLASS_TIMESTAMP,
+    },
+    "moonrise": {
+        "name": "Moonrise",
+        "unit_of_measurement": None,
+        "device_class": DEVICE_CLASS_TIMESTAMP,
+    },
+    "moonset": {
+        "name": "Moonset",
+        "unit_of_measurement": None,
+        "device_class": DEVICE_CLASS_TIMESTAMP,
+    },
     "moonPhase": {
         "name": "Moon Phase",
         "unit_of_measurement": PERCENTAGE,

@@ -101,13 +101,31 @@ async def test_forecast_astronomy(hass):
             suggested_object_id="here_weather_forecast_astronomy_sunrise_0",
             disabled_by=None,
         )
+        registry.async_get_or_create(
+            "sensor",
+            DOMAIN,
+            "40.79962_-73.970314_forecast_astronomy_sunset_0",
+            suggested_object_id="here_weather_forecast_astronomy_sunset_0",
+            disabled_by=None,
+        )
+        registry.async_get_or_create(
+            "sensor",
+            DOMAIN,
+            "40.79962_-73.970314_forecast_astronomy_utctime_0",
+            suggested_object_id="here_weather_forecast_astronomy_utc_time_0",
+            disabled_by=None,
+        )
 
         await hass.config_entries.async_setup(entry.entry_id)
 
         await hass.async_block_till_done()
 
-        sensor = hass.states.get("sensor.here_weather_forecast_astronomy_sunrise_0")
-        assert sensor.state == "6:55AM"
+        sunrise = hass.states.get("sensor.here_weather_forecast_astronomy_sunrise_0")
+        assert sunrise.state == "2019-10-04 10:55:00+00:00"
+        sunset = hass.states.get("sensor.here_weather_forecast_astronomy_sunset_0")
+        assert sunset.state == "2019-10-04 22:33:00+00:00"
+        utc_time = hass.states.get("sensor.here_weather_forecast_astronomy_utc_time_0")
+        assert utc_time.state == "2019-10-04 04:00:00+00:00"
 
 
 async def test_imperial(hass):

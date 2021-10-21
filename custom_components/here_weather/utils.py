@@ -1,6 +1,8 @@
 """Utility functions for here_weather."""
 from __future__ import annotations
 
+from datetime import datetime
+
 from homeassistant.const import (
     CONF_UNIT_SYSTEM_METRIC,
     LENGTH_CENTIMETERS,
@@ -14,6 +16,7 @@ from homeassistant.const import (
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT,
 )
+from homeassistant.util.dt import as_utc, parse_datetime
 
 
 def convert_temperature_unit_of_measurement_if_needed(
@@ -60,3 +63,12 @@ def convert_asterisk_to_none(state: str) -> str | None:
     if state == "*":
         return None
     return state
+
+
+def combine_utc_and_local(local_time: str, utc: str) -> str:
+    """Combine local time e.g. 6:55PM and a utc timestamp."""
+    local_date_time = datetime.strptime(local_time, "%I:%M%p")
+    utc_date_time = parse_datetime(utc)
+    return as_utc(
+        datetime.combine(utc_date_time, local_date_time.time(), utc_date_time.tzinfo)
+    )

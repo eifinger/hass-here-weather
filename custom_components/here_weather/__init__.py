@@ -1,6 +1,7 @@
 """The here_weather component."""
 from __future__ import annotations
 
+import copy
 from datetime import timedelta
 import logging
 from typing import Any
@@ -17,6 +18,9 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.util.dt import as_utc, parse_datetime
+
+from custom_components.here_weather.utils import combine_utc_and_local
 
 from .const import CONF_MODES, DEFAULT_SCAN_INTERVAL, DOMAIN, STARTUP_MESSAGE
 
@@ -79,7 +83,7 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
                 f"Unable to fetch data from HERE: {error.args[0]}"
             ) from error
 
-    async def _get_data(self):
+    async def _get_data(self) -> list[dict[str, str | float]]:
         """Get the latest data from HERE."""
         is_metric = self.hass.config.units.name == CONF_UNIT_SYSTEM_METRIC
         data = await self.here_client.weather_for_coordinates(
@@ -95,10 +99,10 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
 def extract_data_from_payload_for_product_type(
     data: dict[str, Any], product_type: aiohere.WeatherProductType
-) -> list:
+) -> list[dict[str, str | float]]:
     """Extract the actual data from the HERE payload."""
     if product_type == aiohere.WeatherProductType.FORECAST_ASTRONOMY:
-        return data["astronomy"]["astronomy"]
+        return astronomy_data_with_utc(data["astronomy"]["astronomy"])
     if product_type == aiohere.WeatherProductType.OBSERVATION:
         return data["observations"]["location"][0]["observation"]
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS:
@@ -109,3 +113,23 @@ def extract_data_from_payload_for_product_type(
         return data["hourlyForecasts"]["forecastLocation"]["forecast"]
     _LOGGER.debug("Payload malformed: %s", data)
     raise UpdateFailed("Payload malformed")
+
+
+def astronomy_data_with_utc(
+    data: list[dict[str, str | float]]
+) -> list[dict[str, str | float]]:
+    """Amend astronomy data with utc fields."""
+    ammended_data = copy.deepcopy(data)
+    for element in ammended_data:
+        element["sunrise"] = combine_utc_and_local(
+            element["sunrise"], element["utcTime"]
+        )
+        element["sunset"] = combine_utc_and_local(element["sunset"], element["utcTime"])
+        element["moonrise"] = combine_utc_and_local(
+            element["moonrise"], element["utcTime"]
+        )
+        element["moonset"] = combine_utc_and_local(
+            element["moonset"], element["utcTime"]
+        )
+        element["utcTime"] = as_utc(parse_datetime(element["utcTime"]))
+    return ammended_data
