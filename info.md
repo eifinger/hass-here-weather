@@ -62,10 +62,10 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
 [discord]: https://discord.gg/Qa5fW2R
 [discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
-[exampleimg]: img/here_weather_7days_forecast.png
-[disabled_entities_img]: img/here_weather_disabled_entities.png
-[enable_entity_img]: img/here_weather_enable_entity.png
-[moonphases_img]: img/here_weather_moonphases.png
+[exampleimg]: https://raw.githubusercontent.com/eifinger/hass-here-weather/master/img/here_weather_7days_forecast.png
+[disabled_entities_img]:  https://raw.githubusercontent.com/eifinger/hass-here-weather/master/img/here_weather_disabled_entities.png
+[enable_entity_img]:  https://raw.githubusercontent.com/eifinger/hass-here-weather/master/img/here_weather_enable_entity.png
+[moonphases_img]:  https://raw.githubusercontent.com/eifinger/hass-here-weather/master/img/here_weather_moonphases.png
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
 [forum]: https://community.home-assistant.io/
 [license-shield]: https://img.shields.io/github/license/eifinger/hass-here-weather.svg?style=for-the-badge
