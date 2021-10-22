@@ -21,7 +21,7 @@
       "init": {
         "description": "Adjust HERE Destination Options",
         "data": {
-          "language": "Displaylanguage"
+          "language": "Display Language"
         }
       }
     }
