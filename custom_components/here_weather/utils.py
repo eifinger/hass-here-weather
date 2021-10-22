@@ -67,7 +67,10 @@ def convert_asterisk_to_none(state: str) -> str | None:
 
 def combine_utc_and_local(local_time: str, utc: str) -> str:
     """Combine local time e.g. 6:55PM and a utc timestamp."""
-    local_date_time = datetime.strptime(local_time, "%I:%M%p")
+    try:
+        local_date_time = datetime.strptime(local_time, "%I:%M%p")
+    except ValueError:
+        return None
     utc_date_time = parse_datetime(utc)
     return as_utc(
         datetime.combine(utc_date_time, local_date_time.time(), utc_date_time.tzinfo)

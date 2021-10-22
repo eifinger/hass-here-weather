@@ -4,12 +4,12 @@ from __future__ import annotations
 import aiohere
 from homeassistant import config_entries
 from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
-from homeassistant.core import HomeAssistant
+from homeassistant.core import callback, HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 
-from .const import DEFAULT_MODE, DOMAIN
+from .const import CONF_LANGUAGE, DEFAULT_LANGUAGE, DEFAULT_MODE, DOMAIN, LANGUAGES
 
 
 async def async_validate_user_input(hass: HomeAssistant, user_input: dict) -> None:
@@ -76,6 +76,34 @@ class HereWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 ): cv.longitude,
             }
         )
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        """Get the options flow for this handler."""
+        return HereWeatherConfigFlowOptionsFlowHandler(config_entry)
+
+
+class HereWeatherConfigFlowOptionsFlowHandler(config_entries.OptionsFlow):
+    """Handle here_weather options."""
+
+    def __init__(self, config_entry):
+        """Initialize here_weather options flow."""
+        self.config_entry = config_entry
+
+    async def async_step_init(self, user_input=None):
+        """Manage the here_weather options."""
+        if user_input is not None:
+            return self.async_create_entry(title="", data=user_input)
+
+        options = {
+            vol.Optional(
+                CONF_LANGUAGE,
+                default=self.config_entry.options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE),
+            ): vol.In(LANGUAGES.keys()),
+        }
+
+        return self.async_show_form(step_id="init", data_schema=vol.Schema(options))
 
 
 def _unique_id(user_input: dict) -> str:

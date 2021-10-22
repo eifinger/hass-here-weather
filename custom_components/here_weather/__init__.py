@@ -22,7 +22,15 @@ from homeassistant.util.dt import as_utc, parse_datetime
 
 from custom_components.here_weather.utils import combine_utc_and_local
 
-from .const import CONF_MODES, DEFAULT_SCAN_INTERVAL, DOMAIN, STARTUP_MESSAGE
+from .const import (
+    CONF_LANGUAGE,
+    CONF_MODES,
+    DEFAULT_LANGUAGE,
+    DEFAULT_SCAN_INTERVAL,
+    DOMAIN,
+    LANGUAGES,
+    STARTUP_MESSAGE,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -61,6 +69,7 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
         """Initialize the data object."""
         session = async_get_clientsession(hass)
         self.here_client = aiohere.AioHere(entry.data[CONF_API_KEY], session=session)
+        self.language = LANGUAGES[entry.options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE)]
         self.latitude = entry.data[CONF_LATITUDE]
         self.longitude = entry.data[CONF_LONGITUDE]
         self.weather_product_type = aiohere.WeatherProductType[mode]
@@ -90,6 +99,7 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
             self.latitude,
             self.longitude,
             self.weather_product_type,
+            language=self.language,
             metric=is_metric,
         )
         return extract_data_from_payload_for_product_type(
