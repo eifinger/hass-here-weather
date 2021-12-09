@@ -17,6 +17,7 @@ from homeassistant.components.weather import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME, TEMP_CELSIUS
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -184,12 +185,12 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
     @property
     def device_info(self) -> DeviceInfo:
         """Return a device description for device registry."""
-        return {
-            "identifiers": {(DOMAIN, self._unique_id)},
-            "name": self.name,
-            "manufacturer": "here.com",
-            "entry_type": "service",
-        }
+        return DeviceInfo(
+            identifiers={(DOMAIN, self._unique_id)},
+            name=self.name,
+            manufacturer="here.com",
+            entry_type=DeviceEntryType.SERVICE,
+        )
 
 
 def get_wind_speed_from_here_data(here_data: list, offset: int = 0) -> float:

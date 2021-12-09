@@ -121,11 +121,11 @@ async def test_forecast_astronomy(hass):
         await hass.async_block_till_done()
 
         sunrise = hass.states.get("sensor.here_weather_forecast_astronomy_sunrise_0")
-        assert sunrise.state == "2019-10-04 10:55:00+00:00"
+        assert sunrise.state == "2019-10-04T10:55:00+00:00"
         sunset = hass.states.get("sensor.here_weather_forecast_astronomy_sunset_0")
-        assert sunset.state == "2019-10-04 22:33:00+00:00"
+        assert sunset.state == "2019-10-04T22:33:00+00:00"
         utc_time = hass.states.get("sensor.here_weather_forecast_astronomy_utc_time_0")
-        assert utc_time.state == "2019-10-04 04:00:00+00:00"
+        assert utc_time.state == "2019-10-04T04:00:00+00:00"
 
 
 async def test_imperial(hass):
