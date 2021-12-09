@@ -5,8 +5,8 @@ from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
@@ -86,8 +86,8 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
         return self._unique_id
 
     @property
-    def state(self) -> StateType:
-        """Return the state of the device."""
+    def native_value(self) -> str | None:
+        """Return the state of the sensor."""
         return get_attribute_from_here_data(
             self.coordinator.data,
             self._weather_attribute,
@@ -95,20 +95,20 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
         )
 
     @property
-    def unit_of_measurement(self) -> str | None:
-        """Return the unit of measurement of this entity, if any."""
+    def native_unit_of_measurement(self) -> str:
+        """Return the unit this state is expressed in."""
         return self._unit_of_measurement
 
     @property
     def device_info(self) -> DeviceInfo:
         """Return a device description for device registry."""
 
-        return {
-            "identifiers": {(DOMAIN, self._unique_device_id)},
-            "name": f"{self._base_name} {self._sensor_type}",
-            "manufacturer": "here.com",
-            "entry_type": "service",
-        }
+        return DeviceInfo(
+            identifiers={(DOMAIN, self._unique_device_id)},
+            name=f"{self._base_name} {self._sensor_type}",
+            manufacturer="here.com",
+            entry_type=DeviceEntryType.SERVICE,
+        )
 
     @property
     def device_class(self) -> str | None:
