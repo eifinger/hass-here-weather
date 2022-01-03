@@ -1,4 +1,5 @@
 """Sensor platform for the HERE Destination Weather service."""
+# pyright: reportGeneralTypeIssues=false
 from __future__ import annotations
 
 from homeassistant.components.sensor import SensorEntity
@@ -63,9 +64,11 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
         self._device_class = SENSOR_TYPES[sensor_type][weather_attribute][
             "device_class"
         ]
-        self._unique_id = "".join(
-            f"{self._latitude}_{self._longitude}_{self._sensor_type}_{self._name_suffix}_{self._sensor_number}".lower().split()
+        unique_id = (
+            f"{self._latitude}_{self._longitude}"
+            f"_{self._sensor_type}_{self._name_suffix}_{self._sensor_number}"
         )
+        self._unique_id = "".join(unique_id.lower().split())
         self._unique_device_id = "".join(
             f"{self._latitude}_{self._longitude}_{self._sensor_type}".lower().split()
         )
@@ -78,7 +81,10 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
     @property
     def name(self) -> str:
         """Return the name of the sensor."""
-        return f"{self._base_name} {self._sensor_type} {self._name_suffix} {self._sensor_number}"
+        return (
+            f"{self._base_name} {self._sensor_type} "
+            f"{self._name_suffix} {self._sensor_number}"
+        )
 
     @property
     def unique_id(self) -> str:
@@ -95,7 +101,7 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
         )
 
     @property
-    def native_unit_of_measurement(self) -> str:
+    def native_unit_of_measurement(self) -> str | None:
         """Return the unit this state is expressed in."""
         return self._unit_of_measurement
 

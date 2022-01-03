@@ -1,5 +1,4 @@
 [MASTER]
-ignore=tests
 # Use a conservative default here; 2 should speed up most setups and not hurt
 # any too bad. Override on command line as appropriate.
 # Disabled for now: https://github.com/PyCQA/pylint/issues/3584

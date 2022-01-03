@@ -51,11 +51,10 @@ def get_attribute_from_here_data(
 ) -> str | None:
     """Extract and convert data from HERE response or None if not found."""
     try:
-        state = here_data[sensor_number][attribute_name]
+        state = str(here_data[sensor_number][attribute_name])
     except KeyError:
         return None
-    state = convert_asterisk_to_none(state)
-    return state
+    return convert_asterisk_to_none(state)
 
 
 def convert_asterisk_to_none(state: str) -> str | None:
@@ -65,13 +64,13 @@ def convert_asterisk_to_none(state: str) -> str | None:
     return state
 
 
-def combine_utc_and_local(local_time: str, utc: str) -> str:
+def combine_utc_and_local(local_time: str, utc: str) -> datetime | None:
     """Combine local time e.g. 6:55PM and a utc timestamp."""
     try:
         local_date_time = datetime.strptime(local_time, "%I:%M%p")
     except ValueError:
         return None
     utc_date_time = parse_datetime(utc)
-    return as_utc(
+    return as_utc(  # type: ignore
         datetime.combine(utc_date_time, local_date_time.time(), utc_date_time.tzinfo)
     )

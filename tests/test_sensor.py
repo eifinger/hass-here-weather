@@ -3,6 +3,7 @@ from datetime import timedelta
 from unittest.mock import patch
 
 import aiohere
+import homeassistant.util.dt as dt_util
 from homeassistant.const import (
     CONF_API_KEY,
     CONF_LATITUDE,
@@ -10,7 +11,6 @@ from homeassistant.const import (
     CONF_NAME,
     CONF_SCAN_INTERVAL,
 )
-import homeassistant.util.dt as dt_util
 from homeassistant.util.unit_system import IMPERIAL_SYSTEM
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,

@@ -1,9 +1,10 @@
 """The here_weather component."""
+# pyright: reportGeneralTypeIssues=false
 from __future__ import annotations
 
 import copy
-from datetime import timedelta
 import logging
+from datetime import timedelta
 from typing import Any
 
 import aiohere
@@ -59,7 +60,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
 
-    return unload_ok
+    return unload_ok  # type: ignore
 
 
 class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
@@ -81,18 +82,17 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
         )
 
-    async def _async_update_data(self) -> list:
+    async def _async_update_data(self) -> Any:
         """Perform data update."""
         try:
             async with async_timeout.timeout(10):
-                data = await self._get_data()
-                return data
+                return await self._get_data()
         except aiohere.HereError as error:
             raise UpdateFailed(
                 f"Unable to fetch data from HERE: {error.args[0]}"
             ) from error
 
-    async def _get_data(self) -> list[dict[str, str | float]]:
+    async def _get_data(self) -> Any:
         """Get the latest data from HERE."""
         is_metric = self.hass.config.units.name == CONF_UNIT_SYSTEM_METRIC
         data = await self.here_client.weather_for_coordinates(
@@ -109,7 +109,7 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
 def extract_data_from_payload_for_product_type(
     data: dict[str, Any], product_type: aiohere.WeatherProductType
-) -> list[dict[str, str | float]]:
+) -> Any:
     """Extract the actual data from the HERE payload."""
     if product_type == aiohere.WeatherProductType.FORECAST_ASTRONOMY:
         return astronomy_data_with_utc(data["astronomy"]["astronomy"])
@@ -125,9 +125,7 @@ def extract_data_from_payload_for_product_type(
     raise UpdateFailed("Payload malformed")
 
 
-def astronomy_data_with_utc(
-    data: list[dict[str, str | float]]
-) -> list[dict[str, str | float]]:
+def astronomy_data_with_utc(data: Any) -> Any:
     """Amend astronomy data with utc fields."""
     ammended_data = copy.deepcopy(data)
     for element in ammended_data:

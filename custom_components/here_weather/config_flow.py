@@ -2,12 +2,13 @@
 from __future__ import annotations
 
 import aiohere
-from homeassistant import config_entries
-from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
-from homeassistant.core import callback, HomeAssistant
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
+from homeassistant import config_entries
+from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import CONF_LANGUAGE, DEFAULT_LANGUAGE, DEFAULT_MODE, DOMAIN, LANGUAGES
 
@@ -23,12 +24,12 @@ async def async_validate_user_input(hass: HomeAssistant, user_input: dict) -> No
     )
 
 
-class HereWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class HereWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
     """Handle a config flow for here_weather."""
 
     VERSION = 1
 
-    async def async_step_user(self, user_input=None):
+    async def async_step_user(self, user_input=None) -> FlowResult:
         """Handle the initial step."""
         errors = {}
         if user_input is not None:
@@ -79,7 +80,7 @@ class HereWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     @staticmethod
     @callback
-    def async_get_options_flow(config_entry):
+    def async_get_options_flow(config_entry) -> config_entries.OptionsFlow:
         """Get the options flow for this handler."""
         return HereWeatherConfigFlowOptionsFlowHandler(config_entry)
 
@@ -87,11 +88,11 @@ class HereWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 class HereWeatherConfigFlowOptionsFlowHandler(config_entries.OptionsFlow):
     """Handle here_weather options."""
 
-    def __init__(self, config_entry):
+    def __init__(self, config_entry) -> None:
         """Initialize here_weather options flow."""
         self.config_entry = config_entry
 
-    async def async_step_init(self, user_input=None):
+    async def async_step_init(self, user_input=None) -> FlowResult:
         """Manage the here_weather options."""
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)

@@ -1,4 +1,5 @@
 """Weather platform for the HERE Destination Weather service."""
+# pyright: reportGeneralTypeIssues=false
 from __future__ import annotations
 
 from homeassistant.components.weather import (
@@ -67,9 +68,10 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         super().__init__(coordinator)
         self._name = entry.data[CONF_NAME]
         self._mode = mode
-        self._unique_id = "".join(
-            f"{entry.data[CONF_LATITUDE]}_{entry.data[CONF_LONGITUDE]}_{self._mode}".lower().split()
+        unique_id = (
+            f"{entry.data[CONF_LATITUDE]}_{entry.data[CONF_LONGITUDE]}_{self._mode}"
         )
+        self._unique_id = "".join(unique_id.lower().split())
 
     @property
     def name(self):
@@ -193,25 +195,29 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         )
 
 
-def get_wind_speed_from_here_data(here_data: list, offset: int = 0) -> float:
+def get_wind_speed_from_here_data(here_data: list, offset: int = 0) -> float | None:
     """Return the wind speed from here_data."""
-    wind_speed = get_attribute_from_here_data(here_data, "windSpeed", offset)
-    assert wind_speed is not None
-    return float(wind_speed)
+    if (
+        wind_speed := get_attribute_from_here_data(here_data, "windSpeed", offset)
+    ) is not None:
+        return float(wind_speed)
+    return None
 
 
-def get_wind_bearing_from_here_data(here_data: list, offset: int = 0) -> int:
+def get_wind_bearing_from_here_data(here_data: list, offset: int = 0) -> int | None:
     """Return the wind bearing from here_data."""
-    wind_bearing = get_attribute_from_here_data(here_data, "windDirection", offset)
-    assert wind_bearing is not None
-    return int(wind_bearing)
+    if (
+        wind_bearing := get_attribute_from_here_data(here_data, "windDirection", offset)
+    ) is not None:
+        return int(wind_bearing)
+    return None
 
 
-def get_time_from_here_data(here_data: list, offset: int = 0) -> str:
+def get_time_from_here_data(here_data: list, offset: int = 0) -> str | None:
     """Return the time from here_data."""
-    time = get_attribute_from_here_data(here_data, "utcTime", offset)
-    assert time is not None
-    return time
+    if (time := get_attribute_from_here_data(here_data, "utcTime", offset)) is not None:
+        return time
+    return None
 
 
 def get_pressure_from_here_data(

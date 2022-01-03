@@ -25,7 +25,7 @@ You need to register for an API key (REST & XYZ HUB API/CLI) by following the in
 
 HERE offers a Freemium Plan which includes 250,000 free Transactions per month. For the Destination Weather API, one transaction equals one request.
 
-By default HERE will deactivate your account if you exceed the free Transaction limit for the month. You can add payment details to reenable your account as described [here](https://knowledge.here.com/csm_kb?id=public_kb_csm_details&number=KB0016434).
+By default HERE will deactivate your account if you exceed the free Transaction limit for the month. You can add payment details to re-enable your account as described [here](https://knowledge.here.com/csm_kb?id=public_kb_csm_details&number=KB0016434).
 
 ## Additional entities
 
