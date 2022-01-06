@@ -4,13 +4,7 @@ from unittest.mock import patch
 
 import aiohere
 import homeassistant.util.dt as dt_util
-from homeassistant.const import (
-    CONF_API_KEY,
-    CONF_LATITUDE,
-    CONF_LONGITUDE,
-    CONF_NAME,
-    CONF_SCAN_INTERVAL,
-)
+from homeassistant.const import CONF_SCAN_INTERVAL
 from homeassistant.util.unit_system import IMPERIAL_SYSTEM
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
@@ -20,6 +14,7 @@ from pytest_homeassistant_custom_component.common import (
 from custom_components.here_weather.const import DEFAULT_SCAN_INTERVAL, DOMAIN
 
 from . import mock_weather_for_coordinates
+from .const import MOCK_CONFIG
 
 
 async def test_sensor_invalid_request(hass):
@@ -33,12 +28,7 @@ async def test_sensor_invalid_request(hass):
         ):
             entry = MockConfigEntry(
                 domain=DOMAIN,
-                data={
-                    CONF_API_KEY: "test",
-                    CONF_NAME: DOMAIN,
-                    CONF_LATITUDE: "40.79962",
-                    CONF_LONGITUDE: "-73.970314",
-                },
+                data=MOCK_CONFIG,
             )
             entry.add_to_hass(hass)
 
@@ -82,12 +72,7 @@ async def test_forecast_astronomy(hass):
     ):
         entry = MockConfigEntry(
             domain=DOMAIN,
-            data={
-                CONF_API_KEY: "test",
-                CONF_NAME: DOMAIN,
-                CONF_LATITUDE: "40.79962",
-                CONF_LONGITUDE: "-73.970314",
-            },
+            data=MOCK_CONFIG,
         )
         entry.add_to_hass(hass)
 
@@ -137,12 +122,7 @@ async def test_imperial(hass):
         hass.config.units = IMPERIAL_SYSTEM
         entry = MockConfigEntry(
             domain=DOMAIN,
-            data={
-                CONF_API_KEY: "test",
-                CONF_NAME: DOMAIN,
-                CONF_LATITUDE: "40.79962",
-                CONF_LONGITUDE: "-73.970314",
-            },
+            data=MOCK_CONFIG,
             options={
                 CONF_SCAN_INTERVAL: 60,
             },

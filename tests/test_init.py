@@ -1,12 +1,12 @@
 """Tests for the here_weather integration."""
 from unittest.mock import patch
 
-from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.here_weather.const import DOMAIN
 
 from . import mock_weather_for_coordinates
+from .const import MOCK_CONFIG
 
 
 async def test_unload_entry(hass):
@@ -17,12 +17,7 @@ async def test_unload_entry(hass):
     ):
         entry = MockConfigEntry(
             domain=DOMAIN,
-            data={
-                CONF_API_KEY: "test",
-                CONF_NAME: DOMAIN,
-                CONF_LATITUDE: "40.79962",
-                CONF_LONGITUDE: "-73.970314",
-            },
+            data=MOCK_CONFIG,
         )
         entry.add_to_hass(hass)
         await hass.config_entries.async_setup(entry.entry_id)
