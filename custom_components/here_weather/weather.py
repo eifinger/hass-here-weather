@@ -68,20 +68,20 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         super().__init__(coordinator)
         self._name = entry.data[CONF_NAME]
         self._mode = mode
-        unique_id = (
-            f"{entry.data[CONF_LATITUDE]}_{entry.data[CONF_LONGITUDE]}_{self._mode}"
+        unique_id = "".join(
+            (f"{entry.data[CONF_LATITUDE]}_{entry.data[CONF_LONGITUDE]}_{self._mode}")
+            .lower()
+            .split()
         )
-        self._unique_id = "".join(unique_id.lower().split())
-
-    @property
-    def name(self):
-        """Return the name of the sensor."""
-        return f"{self._name} {self._mode}"
-
-    @property
-    def unique_id(self):
-        """Set unique_id for sensor."""
-        return self._unique_id
+        self._attr_unique_id = unique_id
+        self._attr_name = f"{self._name} {self._mode}"
+        self._attr_entity_registry_enabled_default = self._mode == DEFAULT_MODE
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, unique_id)},
+            name=self.name,
+            manufacturer="here.com",
+            entry_type=DeviceEntryType.SERVICE,
+        )
 
     @property
     def condition(self) -> str | None:
@@ -123,11 +123,6 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
     def wind_bearing(self) -> float | str | None:
         """Return the wind bearing."""
         return get_wind_bearing_from_here_data(self.coordinator.data)
-
-    @property
-    def attribution(self) -> str | None:
-        """Return the attribution."""
-        return None
 
     @property
     def visibility(self) -> float | None:
@@ -178,21 +173,6 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
                 }
             )
         return data
-
-    @property
-    def entity_registry_enabled_default(self):
-        """Return if the entity should be enabled when first added to the entity registry."""
-        return self._mode == DEFAULT_MODE
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Return a device description for device registry."""
-        return DeviceInfo(
-            identifiers={(DOMAIN, self._unique_id)},
-            name=self.name,
-            manufacturer="here.com",
-            entry_type=DeviceEntryType.SERVICE,
-        )
 
 
 def get_wind_speed_from_here_data(here_data: list, offset: int = 0) -> float | None:
