@@ -50,46 +50,48 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
-        self._base_name = entry.data[CONF_NAME]
-        self._name_suffix = SENSOR_TYPES[sensor_type][weather_attribute]["name"]
-        self._latitude = entry.data[CONF_LATITUDE]
-        self._longitude = entry.data[CONF_LONGITUDE]
-        self._sensor_type = sensor_type
+        base_name = entry.data[CONF_NAME]
+        name_suffix = SENSOR_TYPES[sensor_type][weather_attribute]["name"]
         self._sensor_number = sensor_number
         self._weather_attribute = weather_attribute
-        self._unit_of_measurement = convert_unit_of_measurement_if_needed(
+        self._attr_device_class = SENSOR_TYPES[sensor_type][weather_attribute][
+            "device_class"
+        ]
+        self._attr_device_info = DeviceInfo(
+            identifiers={
+                (
+                    DOMAIN,
+                    "".join(
+                        (
+                            f"{entry.data[CONF_LATITUDE]}"
+                            f"_{entry.data[CONF_LONGITUDE]}"
+                            f"_{sensor_type}"
+                        )
+                        .lower()
+                        .split()
+                    ),
+                )
+            },
+            name=f"{base_name} {sensor_type}",
+            manufacturer="here.com",
+            entry_type=DeviceEntryType.SERVICE,
+        )
+        self._attr_unique_id = "".join(
+            (
+                f"{entry.data[CONF_LATITUDE]}_{entry.data[CONF_LONGITUDE]}"
+                f"_{sensor_type}_{name_suffix}_{self._sensor_number}"
+            )
+            .lower()
+            .split()
+        )
+        self._attr_name = (
+            f"{base_name} {sensor_type} " f"{name_suffix} {self._sensor_number}"
+        )
+        self._attr_entity_registry_enabled_default = False
+        self._attr_native_unit_of_measurement = convert_unit_of_measurement_if_needed(
             self.coordinator.hass.config.units.name,
             SENSOR_TYPES[sensor_type][weather_attribute]["unit_of_measurement"],
         )
-        self._device_class = SENSOR_TYPES[sensor_type][weather_attribute][
-            "device_class"
-        ]
-        unique_id = (
-            f"{self._latitude}_{self._longitude}"
-            f"_{self._sensor_type}_{self._name_suffix}_{self._sensor_number}"
-        )
-        self._unique_id = "".join(unique_id.lower().split())
-        self._unique_device_id = "".join(
-            f"{self._latitude}_{self._longitude}_{self._sensor_type}".lower().split()
-        )
-
-    @property
-    def entity_registry_enabled_default(self):
-        """Return if the entity should be enabled when first added to the entity registry."""
-        return False
-
-    @property
-    def name(self) -> str:
-        """Return the name of the sensor."""
-        return (
-            f"{self._base_name} {self._sensor_type} "
-            f"{self._name_suffix} {self._sensor_number}"
-        )
-
-    @property
-    def unique_id(self) -> str:
-        """Set unique_id for sensor."""
-        return self._unique_id
 
     @property
     def native_value(self) -> str | None:
@@ -99,24 +101,3 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
             self._weather_attribute,
             self._sensor_number,
         )
-
-    @property
-    def native_unit_of_measurement(self) -> str | None:
-        """Return the unit this state is expressed in."""
-        return self._unit_of_measurement
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Return a device description for device registry."""
-
-        return DeviceInfo(
-            identifiers={(DOMAIN, self._unique_device_id)},
-            name=f"{self._base_name} {self._sensor_type}",
-            manufacturer="here.com",
-            entry_type=DeviceEntryType.SERVICE,
-        )
-
-    @property
-    def device_class(self) -> str | None:
-        """Return the class of this device."""
-        return self._device_class
