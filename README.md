@@ -97,4 +97,4 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [license-shield]: https://img.shields.io/github/license/eifinger/hass-here-weather.svg?style=for-the-badge
 [maintenance-shield]: https://img.shields.io/badge/maintainer-Kevin%20Stillhammer%20%40eifinger-blue.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/eifinger/hass-here-weather.svg?style=for-the-badge
-[releases]: https://github.com/eifinger/hass-weenect/releases
+[releases]: https://github.com/eifinger/hass-here-weather/releases
