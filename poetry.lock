@@ -1617,11 +1617,11 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 
 [[package]]
 name = "yamllint"
-version = "1.26.3"
+version = "1.27.1"
 description = "A linter for YAML files."
 category = "dev"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 pathspec = ">=0.5.3"
@@ -1654,7 +1654,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "fb9d48f856d7de62e1fcef833608965dfc6903923e6086d1ff9051cad6596314"
+content-hash = "7d3736feedb778c545782e9257e9b6aeb1c4c3623f3bd5ff8de4636feabe62d6"
 
 [metadata.files]
 aiohere = []
