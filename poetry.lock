@@ -1264,7 +1264,7 @@ python-versions = "*"
 
 [[package]]
 name = "pyupgrade"
-version = "2.34.0"
+version = "2.37.1"
 description = "A tool to automatically upgrade syntax for newer versions."
 category = "dev"
 optional = false
@@ -1654,7 +1654,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "20ab2574b75fabbb6323bb020f75ed5a6f5b419a6219518126c372099e125c4b"
+content-hash = "fb9d48f856d7de62e1fcef833608965dfc6903923e6086d1ff9051cad6596314"
 
 [metadata.files]
 aiohere = []
