@@ -30,7 +30,7 @@ multidict = ">=4.5,<7.0"
 yarl = ">=1.0,<2.0"
 
 [package.extras]
-speedups = ["aiodns", "brotli", "cchardet"]
+speedups = ["Brotli", "aiodns", "cchardet"]
 
 [[package]]
 name = "aiosignal"
@@ -81,7 +81,7 @@ pytz = "*"
 
 [[package]]
 name = "astroid"
-version = "2.12.5"
+version = "2.12.9"
 description = "An abstract syntax tree for Python with inference support."
 category = "dev"
 optional = false
@@ -164,7 +164,7 @@ stevedore = ">=1.20.0"
 [package.extras]
 test = ["beautifulsoup4 (>=4.8.0)", "coverage (>=4.5.4)", "fixtures (>=3.0.0)", "flake8 (>=4.0.0)", "pylint (==1.9.4)", "stestr (>=2.5.0)", "testscenarios (>=0.5.0)", "testtools (>=2.3.0)", "toml"]
 toml = ["toml"]
-yaml = ["pyyaml"]
+yaml = ["PyYAML"]
 
 [[package]]
 name = "bcrypt"
@@ -329,7 +329,7 @@ python-versions = ">=3.6"
 cffi = ">=1.12"
 
 [package.extras]
-docs = ["sphinx (>=1.6.5,!=1.8.0,!=3.1.0,!=3.1.1)", "sphinx-rtd-theme"]
+docs = ["sphinx (>=1.6.5,!=1.8.0,!=3.1.0,!=3.1.1)", "sphinx_rtd_theme"]
 docstest = ["doc8", "pyenchant (>=1.6.11)", "sphinxcontrib-spelling (>=4.0.1)", "twine (>=1.12.0)"]
 pep8test = ["black", "flake8", "flake8-import-order", "pep8-naming"]
 sdist = ["setuptools_rust (>=0.11.4)"]
@@ -501,6 +501,7 @@ python-versions = ">=3.6,<4.0"
 attrs = "*"
 eradicate = ">=2.0,<3.0"
 flake8 = ">=3.5,<6"
+setuptools = "*"
 
 [[package]]
 name = "flake8-markdown"
@@ -586,7 +587,7 @@ optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
 
 [package.extras]
-docs = ["sphinx"]
+docs = ["Sphinx"]
 
 [[package]]
 name = "h11"
@@ -619,6 +620,7 @@ cryptography = "35.0.0"
 httpx = "0.21.0"
 ifaddr = "0.1.7"
 jinja2 = "3.0.3"
+pip = ">=8.0.3,<20.3"
 PyJWT = "2.1.0"
 python-slugify = "4.0.1"
 pyyaml = "6.0"
@@ -862,12 +864,23 @@ optional = false
 python-versions = ">=2.6"
 
 [[package]]
+name = "pip"
+version = "20.2.4"
+description = "The PyPA recommended tool for installing Python packages."
+category = "dev"
+optional = false
+python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
+
+[[package]]
 name = "pipdeptree"
 version = "2.2.0"
 description = "Command line utility to show dependency tree of packages"
 category = "dev"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
+
+[package.dependencies]
+pip = ">=6.0.0"
 
 [package.extras]
 graphviz = ["graphviz"]
@@ -986,14 +999,14 @@ tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
 
 [[package]]
 name = "pylint"
-version = "2.15.0"
+version = "2.15.2"
 description = "python code static checker"
 category = "dev"
 optional = false
 python-versions = ">=3.7.2"
 
 [package.dependencies]
-astroid = ">=2.12.4,<=2.14.0-dev0"
+astroid = ">=2.12.9,<=2.14.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = ">=0.2"
 isort = ">=4.2.5,<6"
@@ -1147,10 +1160,7 @@ pytest-xdist = "2.4.0"
 requests-mock = "1.9.2"
 responses = "0.12.0"
 respx = "0.19.0"
-sqlalchemy = [
-    "*",
-    "1.4.27",
-]
+sqlalchemy = "1.4.27"
 stdlib-list = "0.7.0"
 tqdm = "4.49.0"
 
@@ -1396,6 +1406,20 @@ dparse = ">=0.5.1"
 packaging = ">=21.0"
 requests = "*"
 "ruamel.yaml" = ">=0.17.21"
+setuptools = ">=19.3"
+
+[[package]]
+name = "setuptools"
+version = "65.3.0"
+description = "Easily download, build, install, upgrade, and uninstall Python packages"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "rst.linker (>=1.9)", "sphinx", "sphinx-favicon", "sphinx-hoverxref (<2)", "sphinx-inline-tabs", "sphinx-notfound-page (==0.8.3)", "sphinx-reredirects", "sphinxcontrib-towncrier"]
+testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8 (<5)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "mock", "pip (>=19.1)", "pip-run (>=8.8)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
+testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
 [[package]]
 name = "six"
@@ -1459,7 +1483,7 @@ postgresql_pg8000 = ["pg8000 (>=1.16.6)"]
 postgresql_psycopg2binary = ["psycopg2-binary"]
 postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql", "pymysql (<1)"]
-sqlcipher = ["sqlcipher3-binary"]
+sqlcipher = ["sqlcipher3_binary"]
 
 [[package]]
 name = "stdlib-list"
@@ -1630,6 +1654,7 @@ python-versions = ">=3.6"
 [package.dependencies]
 pathspec = ">=0.5.3"
 pyyaml = "*"
+setuptools = "*"
 
 [[package]]
 name = "yarl"
@@ -1658,7 +1683,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d82f3eeabf6ee484ec82548ff7962b28c3d2450c9f62531e1df25ee9b535504e"
+content-hash = "8ffd0fc4b4fcbe5f4b2f1890003c8e24ba7bc0b2dd11b5a1904412a92a388b92"
 
 [metadata.files]
 aiohere = [
@@ -1756,8 +1781,8 @@ astral = [
     {file = "astral-2.2.tar.gz", hash = "sha256:e41d9967d5c48be421346552f0f4dedad43ff39a83574f5ff2ad32b6627b6fbe"},
 ]
 astroid = [
-    {file = "astroid-2.12.5-py3-none-any.whl", hash = "sha256:d612609242996c4365aeb0345e61edba34363eaaba55f1c0addf6a98f073bef6"},
-    {file = "astroid-2.12.5.tar.gz", hash = "sha256:396c88d0a58d7f8daadf730b2ce90838bf338c6752558db719ec6f99c18ec20e"},
+    {file = "astroid-2.12.9-py3-none-any.whl", hash = "sha256:27a22f40e45af6d362498647a0940e8ae9c35f71cb572a1b6f8f810122a11918"},
+    {file = "astroid-2.12.9.tar.gz", hash = "sha256:0dafbfcf4ebdecd3c8f6d742c9d9c88508229ca823d5c98ab872d964f3321e56"},
 ]
 async-timeout = [
     {file = "async-timeout-4.0.0.tar.gz", hash = "sha256:7d87a4e8adba8ededb52e579ce6bc8276985888913620c935094c2276fd83382"},
@@ -2442,6 +2467,10 @@ pbr = [
     {file = "pbr-5.9.0-py2.py3-none-any.whl", hash = "sha256:e547125940bcc052856ded43be8e101f63828c2d94239ffbe2b327ba3d5ccf0a"},
     {file = "pbr-5.9.0.tar.gz", hash = "sha256:e8dca2f4b43560edef58813969f52a56cef023146cbb8931626db80e6c1c4308"},
 ]
+pip = [
+    {file = "pip-20.2.4-py2.py3-none-any.whl", hash = "sha256:51f1c7514530bd5c145d8f13ed936ad6b8bfcb8cf74e10403d0890bc986f0033"},
+    {file = "pip-20.2.4.tar.gz", hash = "sha256:85c99a857ea0fb0aedf23833d9be5c40cf253fe24443f0829c7b472e23c364a1"},
+]
 pipdeptree = [
     {file = "pipdeptree-2.2.0-py2-none-any.whl", hash = "sha256:e31bcb4db905fe3df15e7c41bc015a3587ef4bafdd5119b011aae32948c4a371"},
     {file = "pipdeptree-2.2.0-py3-none-any.whl", hash = "sha256:95fb603e46343651342583c337a0ee68d3ccade7a81f5cf6b2fbd8151b79ed80"},
@@ -2488,8 +2517,8 @@ pyjwt = [
     {file = "PyJWT-2.1.0.tar.gz", hash = "sha256:fba44e7898bbca160a2b2b501f492824fc8382485d3a6f11ba5d0c1937ce6130"},
 ]
 pylint = [
-    {file = "pylint-2.15.0-py3-none-any.whl", hash = "sha256:4b124affc198b7f7c9b5f9ab690d85db48282a025ef9333f51d2d7281b92a6c3"},
-    {file = "pylint-2.15.0.tar.gz", hash = "sha256:4f3f7e869646b0bd63b3dfb79f3c0f28fc3d2d923ea220d52620fd625aed92b0"},
+    {file = "pylint-2.15.2-py3-none-any.whl", hash = "sha256:cc3da458ba810c49d330e09013dec7ced5217772dec8f043ccdd34dae648fde8"},
+    {file = "pylint-2.15.2.tar.gz", hash = "sha256:f63404a2547edb5247da263748771ac9a806ed1de4174cda01293c08ddbc2999"},
 ]
 pylint-strict-informational = [
     {file = "pylint-strict-informational-0.1.tar.gz", hash = "sha256:946c4948a4cc30bd8dc487919e1e0c478164962f9cbd92afeaeeedc62bc45f52"},
@@ -2658,6 +2687,10 @@ rfc3986 = [
 safety = [
     {file = "safety-2.1.1-py3-none-any.whl", hash = "sha256:05ba551fb61ef24c864835d21089f75bc8b37292680047b9f29693a6552e2fc7"},
     {file = "safety-2.1.1.tar.gz", hash = "sha256:dbc5dffa2e47da76cc43dfe8cbbbfca99d29118d0c6c54dfcfa11c2bd349dff6"},
+]
+setuptools = [
+    {file = "setuptools-65.3.0-py3-none-any.whl", hash = "sha256:2e24e0bec025f035a2e72cdd1961119f557d78ad331bb00ff82efb2ab8da8e82"},
+    {file = "setuptools-65.3.0.tar.gz", hash = "sha256:7732871f4f7fa58fb6bdcaeadb0161b2bd046c85905dbaa066bdcbcc81953b57"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
