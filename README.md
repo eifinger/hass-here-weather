@@ -5,6 +5,7 @@
 [![License][license-shield]](LICENSE)
 
 [![hacs][hacsbadge]][hacs]
+![HACS Installs][hacs-installs-shield]
 ![Project Maintenance][maintenance-shield]
 [![BuyMeCoffee][buymecoffeebadge]][buymecoffee]
 
@@ -86,6 +87,7 @@ If you want to contribute to this please read the [Contribution guidelines](CONT
 [commits]: https://github.com/eifinger/hass-here-weather/commits/master
 [hacs]: https://github.com/hacs/integration
 [hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
+[hacs-installs-shield]: https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=installs&style=for-the-badge&cacheSeconds=15600&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.here_weather.total
 [discord]: https://discord.gg/Qa5fW2R
 [discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
 [exampleimg]: img/here_weather_7days_forecast.png
