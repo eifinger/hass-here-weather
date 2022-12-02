@@ -10,7 +10,7 @@
     "@eifinger"
   ],
   "requirements": [
-    "aiohere==1.3.1"
+    "aiohere==1.4.0"
   ],
   "iot_class": "cloud_polling"
 }
