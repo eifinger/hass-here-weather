@@ -14,8 +14,8 @@ from homeassistant.const import (
     CONF_API_KEY,
     CONF_LATITUDE,
     CONF_LONGITUDE,
-    CONF_UNIT_SYSTEM_METRIC,
 )
+from homeassistant.util.unit_system import METRIC_SYSTEM
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -94,13 +94,12 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _get_data(self) -> Any:
         """Get the latest data from HERE."""
-        is_metric = self.hass.config.units.name == CONF_UNIT_SYSTEM_METRIC
         data = await self.here_client.weather_for_coordinates(
             self.latitude,
             self.longitude,
             self.weather_product_type,
             language=self.language,
-            metric=is_metric,
+            metric=self.hass.config.units is METRIC_SYSTEM,
         )
         return extract_data_from_payload_for_product_type(
             data, self.weather_product_type
