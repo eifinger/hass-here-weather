@@ -18,16 +18,6 @@ from homeassistant.const import (
 )
 from homeassistant.util.dt import as_utc, parse_datetime
 
-
-def convert_temperature_unit_of_measurement_if_needed(
-    unit_system: str, unit_of_measurement: str
-) -> str:
-    """Convert the temperature unit of measurement to imperial if configured."""
-    if unit_system != CONF_UNIT_SYSTEM_METRIC:
-        unit_of_measurement = TEMP_FAHRENHEIT
-    return unit_of_measurement
-
-
 def convert_unit_of_measurement_if_needed(
     unit_system: str, unit_of_measurement: str | None
 ) -> str | None:

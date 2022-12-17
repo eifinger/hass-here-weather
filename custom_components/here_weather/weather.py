@@ -34,7 +34,6 @@ from .const import (
     SENSOR_TYPES,
 )
 from .utils import (
-    convert_temperature_unit_of_measurement_if_needed,
     get_attribute_from_here_data,
 )
 
@@ -89,19 +88,12 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         return get_condition_from_here_data(self.coordinator.data)
 
     @property
-    def temperature(self) -> float | None:
+    def native_temperature(self) -> float | None:
         """Return the temperature."""
         return get_temperature_from_here_data(self.coordinator.data, self._mode)
 
     @property
-    def temperature_unit(self) -> str:
-        """Return the unit of measurement."""
-        return convert_temperature_unit_of_measurement_if_needed(
-            self.coordinator.hass.config.units.name, TEMP_CELSIUS
-        )
-
-    @property
-    def pressure(self) -> float | None:
+    def native_pressure(self) -> float | None:
         """Return the pressure."""
         return get_pressure_from_here_data(self.coordinator.data, self._mode)
 
@@ -115,7 +107,7 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         return None
 
     @property
-    def wind_speed(self) -> float | None:
+    def native_wind_speed(self) -> float | None:
         """Return the wind speed."""
         return get_wind_speed_from_here_data(self.coordinator.data)
 
@@ -125,7 +117,7 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         return get_wind_bearing_from_here_data(self.coordinator.data)
 
     @property
-    def visibility(self) -> float | None:
+    def native_visibility(self) -> float | None:
         """Return the visibility."""
         if "visibility" in SENSOR_TYPES[self._mode]:
             if (
