@@ -50,22 +50,22 @@ CONF_MODES = [
 DEFAULT_MODE = MODE_DAILY_SIMPLE
 
 ASTRONOMY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
-    "sunrise": {
+    "sunRise": {
         "name": "Sunrise",
         "unit_of_measurement": None,
         "device_class": DEVICE_CLASS_TIMESTAMP,
     },
-    "sunset": {
+    "sunSet": {
         "name": "Sunset",
         "unit_of_measurement": None,
         "device_class": DEVICE_CLASS_TIMESTAMP,
     },
-    "moonrise": {
+    "moonRise": {
         "name": "Moonrise",
         "unit_of_measurement": None,
         "device_class": DEVICE_CLASS_TIMESTAMP,
     },
-    "moonset": {
+    "moonSet": {
         "name": "Moonset",
         "unit_of_measurement": None,
         "device_class": DEVICE_CLASS_TIMESTAMP,
@@ -75,7 +75,7 @@ ASTRONOMY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "unit_of_measurement": PERCENTAGE,
         "device_class": None,
     },
-    "moonPhaseDesc": {
+    "moonPhaseDescription": {
         "name": "Moon Phase Description",
         "unit_of_measurement": None,
         "device_class": None,
@@ -87,7 +87,7 @@ ASTRONOMY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "unit_of_measurement": None,
         "device_class": None,
     },
-    "utcTime": {
+    "time": {
         "name": "UTC Time",
         "unit_of_measurement": None,
         "device_class": DEVICE_CLASS_TIMESTAMP,
@@ -102,7 +102,7 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "device_class": None,
     },
     "skyInfo": {"name": "Sky Info", "unit_of_measurement": None, "device_class": None},
-    "skyDescription": {
+    "skyDesc": {
         "name": "Sky Description",
         "unit_of_measurement": None,
         "device_class": None,
@@ -137,11 +137,6 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "unit_of_measurement": None,
         "device_class": None,
     },
-    "airDescription": {
-        "name": "Air Description",
-        "unit_of_measurement": None,
-        "device_class": None,
-    },
     "windSpeed": {
         "name": "Wind Speed",
         "unit_of_measurement": SPEED_KILOMETERS_PER_HOUR,
@@ -162,7 +157,6 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "unit_of_measurement": LENGTH_CENTIMETERS,
         "device_class": None,
     },
-    "icon": {"name": "Icon", "unit_of_measurement": None, "device_class": None},
     "iconName": {
         "name": "Icon Name",
         "unit_of_measurement": None,

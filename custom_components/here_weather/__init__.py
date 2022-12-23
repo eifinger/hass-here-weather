@@ -14,7 +14,6 @@ from homeassistant.const import (
     CONF_API_KEY,
     CONF_LATITUDE,
     CONF_LONGITUDE,
-    CONF_UNIT_SYSTEM_METRIC,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -94,13 +93,11 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _get_data(self) -> Any:
         """Get the latest data from HERE."""
-        is_metric = self.hass.config.units.name == CONF_UNIT_SYSTEM_METRIC
         data = await self.here_client.weather_for_coordinates(
             self.latitude,
             self.longitude,
-            self.weather_product_type,
+            [self.weather_product_type],
             language=self.language,
-            metric=is_metric,
         )
         return extract_data_from_payload_for_product_type(
             data, self.weather_product_type
@@ -112,32 +109,38 @@ def extract_data_from_payload_for_product_type(
 ) -> Any:
     """Extract the actual data from the HERE payload."""
     if product_type == aiohere.WeatherProductType.FORECAST_ASTRONOMY:
-        return astronomy_data_with_utc(data["astronomy"]["astronomy"])
+        return astronomy_data(data["astronomyForecasts"][0])
     if product_type == aiohere.WeatherProductType.OBSERVATION:
-        return data["observations"]["location"][0]["observation"]
+        return data["observations"]
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS:
-        return data["forecasts"]["forecastLocation"]["forecast"]
+        return data["extendedDailyForecasts"][0]["forecasts"]
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS_SIMPLE:
-        return data["dailyForecasts"]["forecastLocation"]["forecast"]
+        return data["dailyForecasts"][0]["forecasts"]
     if product_type == aiohere.WeatherProductType.FORECAST_HOURLY:
-        return data["hourlyForecasts"]["forecastLocation"]["forecast"]
+        return data["hourlyForecasts"][0]["forecasts"]
     _LOGGER.debug("Payload malformed: %s", data)
     raise UpdateFailed("Payload malformed")
 
 
-def astronomy_data_with_utc(data: Any) -> Any:
+def astronomy_data(data: dict[str, Any]) -> dict[str, Any]:
+    """Restructure data for this integration."""
+    ammended_data = copy.deepcopy(data["forecasts"])
+    for element in ammended_data:
+        element["city"] = data["place"]["address"]["city"]
+        element["latitude"] = data["place"]["location"]["lat"]
+        element["longitude"] = data["place"]["location"]["lng"]
+    return astronomy_data_with_utc(ammended_data)
+
+
+def astronomy_data_with_utc(data: dict[str, Any]) -> dict[str, Any]:
     """Amend astronomy data with utc fields."""
     ammended_data = copy.deepcopy(data)
     for element in ammended_data:
-        element["sunrise"] = combine_utc_and_local(
-            element["sunrise"], element["utcTime"]
+        element["sunRise"] = combine_utc_and_local(element["sunRise"], element["time"])
+        element["sunSet"] = combine_utc_and_local(element["sunSet"], element["time"])
+        element["moonRise"] = combine_utc_and_local(
+            element["moonRise"], element["time"]
         )
-        element["sunset"] = combine_utc_and_local(element["sunset"], element["utcTime"])
-        element["moonrise"] = combine_utc_and_local(
-            element["moonrise"], element["utcTime"]
-        )
-        element["moonset"] = combine_utc_and_local(
-            element["moonset"], element["utcTime"]
-        )
-        element["utcTime"] = as_utc(parse_datetime(element["utcTime"]))
+        element["moonSet"] = combine_utc_and_local(element["moonSet"], element["time"])
+        element["time"] = as_utc(parse_datetime(element["time"]))
     return ammended_data

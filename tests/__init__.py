@@ -20,13 +20,13 @@ from .const import (
 
 def mock_weather_for_coordinates(*args, **kwargs):  # noqa: F841
     """Return mock data for request weather product type."""
-    if args[2] == aiohere.WeatherProductType[MODE_ASTRONOMY]:
+    if args[2] == [aiohere.WeatherProductType[MODE_ASTRONOMY]]:
         return astronomy_response
-    if args[2] == aiohere.WeatherProductType[MODE_HOURLY]:
+    if args[2] == [aiohere.WeatherProductType[MODE_HOURLY]]:
         return hourly_response
-    if args[2] == aiohere.WeatherProductType[MODE_DAILY]:
+    if args[2] == [aiohere.WeatherProductType[MODE_DAILY]]:
         return daily_response
-    if args[2] == aiohere.WeatherProductType[MODE_DAILY_SIMPLE]:
+    if args[2] == [aiohere.WeatherProductType[MODE_DAILY_SIMPLE]]:
         return daily_simple_forecasts_response
-    if args[2] == aiohere.WeatherProductType[MODE_OBSERVATION]:
+    if args[2] == [aiohere.WeatherProductType[MODE_OBSERVATION]]:
         return observation_response

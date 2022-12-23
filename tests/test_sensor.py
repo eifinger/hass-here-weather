@@ -4,8 +4,7 @@ from unittest.mock import patch
 
 import aiohere
 import homeassistant.util.dt as dt_util
-from homeassistant.const import CONF_SCAN_INTERVAL
-from homeassistant.util.unit_system import IMPERIAL_SYSTEM
+from homeassistant.helpers import entity_registry
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
     async_fire_time_changed,
@@ -32,7 +31,7 @@ async def test_sensor_invalid_request(hass):
             )
             entry.add_to_hass(hass)
 
-            registry = await hass.helpers.entity_registry.async_get_registry()
+            registry = entity_registry.async_get(hass)
 
             # Pre-create registry entries for disabled by default sensors
             registry.async_get_or_create(
@@ -50,7 +49,7 @@ async def test_sensor_invalid_request(hass):
             sensor = hass.states.get(
                 "sensor.here_weather_forecast_7days_simple_windspeed_0"
             )
-            assert sensor.state == "12.03"
+            assert sensor.state == "22.22"
         with patch(
             "aiohere.AioHere.weather_for_coordinates",
             side_effect=aiohere.HereInvalidRequestError("Invalid"),
@@ -76,7 +75,7 @@ async def test_forecast_astronomy(hass):
         )
         entry.add_to_hass(hass)
 
-        registry = await hass.helpers.entity_registry.async_get_registry()
+        registry = entity_registry.async_get(hass)
 
         # Pre-create registry entries for disabled by default sensors
         registry.async_get_or_create(
@@ -106,45 +105,8 @@ async def test_forecast_astronomy(hass):
         await hass.async_block_till_done()
 
         sunrise = hass.states.get("sensor.here_weather_forecast_astronomy_sunrise_0")
-        assert sunrise.state == "2019-10-04T10:55:00+00:00"
+        assert sunrise.state == "2022-12-18T13:13:00+00:00"
         sunset = hass.states.get("sensor.here_weather_forecast_astronomy_sunset_0")
-        assert sunset.state == "2019-10-04T22:33:00+00:00"
+        assert sunset.state == "2022-12-18T22:21:00+00:00"
         utc_time = hass.states.get("sensor.here_weather_forecast_astronomy_utc_time_0")
-        assert utc_time.state == "2019-10-04T04:00:00+00:00"
-
-
-async def test_imperial(hass):
-    """Test that imperial mode works."""
-    with patch(
-        "aiohere.AioHere.weather_for_coordinates",
-        side_effect=mock_weather_for_coordinates,
-    ):
-        hass.config.units = IMPERIAL_SYSTEM
-        entry = MockConfigEntry(
-            domain=DOMAIN,
-            data=MOCK_CONFIG,
-            options={
-                CONF_SCAN_INTERVAL: 60,
-            },
-        )
-        entry.add_to_hass(hass)
-
-        registry = await hass.helpers.entity_registry.async_get_registry()
-
-        # Pre-create registry entries for disabled by default sensors
-        registry.async_get_or_create(
-            "sensor",
-            DOMAIN,
-            "40.79962_-73.970314_forecast_7days_simple_windspeed_0",
-            suggested_object_id="here_weather_forecast_7days_simple_windspeed_0",
-            disabled_by=None,
-        )
-
-        await hass.config_entries.async_setup(entry.entry_id)
-
-        await hass.async_block_till_done()
-
-        sensor = hass.states.get(
-            "sensor.here_weather_forecast_7days_simple_windspeed_0"
-        )
-        assert sensor.attributes.get("unit_of_measurement") == "mph"
+        assert utc_time.state == "2022-12-18T06:00:00+00:00"

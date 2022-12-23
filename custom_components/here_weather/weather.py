@@ -1,28 +1,24 @@
 """Weather platform for the HERE Destination Weather service."""
 # pyright: reportGeneralTypeIssues=false
 from __future__ import annotations
+from . import HEREWeatherDataUpdateCoordinator
 
 from homeassistant.components.weather import (
-    ATTR_FORECAST_CONDITION,
-    ATTR_FORECAST_PRECIPITATION,
-    ATTR_FORECAST_PRECIPITATION_PROBABILITY,
-    ATTR_FORECAST_PRESSURE,
-    ATTR_FORECAST_TEMP,
-    ATTR_FORECAST_TEMP_LOW,
-    ATTR_FORECAST_TIME,
-    ATTR_FORECAST_WIND_BEARING,
-    ATTR_FORECAST_WIND_SPEED,
     Forecast,
     WeatherEntity,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME, TEMP_CELSIUS
+from homeassistant.const import (
+    CONF_LATITUDE,
+    CONF_LONGITUDE,
+    CONF_NAME,
+    UnitOfTemperature,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
-    DataUpdateCoordinator,
 )
 
 from .const import (
@@ -34,7 +30,6 @@ from .const import (
     SENSOR_TYPES,
 )
 from .utils import (
-    convert_temperature_unit_of_measurement_if_needed,
     get_attribute_from_here_data,
 )
 
@@ -62,7 +57,10 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
     """Implementation of an HERE Destination Weather WeatherEntity."""
 
     def __init__(
-        self, entry: ConfigEntry, coordinator: DataUpdateCoordinator, mode: str
+        self,
+        entry: ConfigEntry,
+        coordinator: HEREWeatherDataUpdateCoordinator,
+        mode: str,
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
@@ -73,6 +71,7 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
             .lower()
             .split()
         )
+        self._attr_native_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_unique_id = unique_id
         self._attr_name = f"{self._name} {self._mode}"
         self._attr_entity_registry_enabled_default = self._mode == DEFAULT_MODE
@@ -86,36 +85,21 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
     @property
     def condition(self) -> str | None:
         """Return the current condition."""
+        print(self._attr_unique_id)
         return get_condition_from_here_data(self.coordinator.data)
 
     @property
-    def temperature(self) -> float | None:
+    def native_temperature(self) -> float | None:
         """Return the temperature."""
         return get_temperature_from_here_data(self.coordinator.data, self._mode)
 
     @property
-    def temperature_unit(self) -> str:
-        """Return the unit of measurement."""
-        return convert_temperature_unit_of_measurement_if_needed(
-            self.coordinator.hass.config.units.name, TEMP_CELSIUS
-        )
-
-    @property
-    def pressure(self) -> float | None:
+    def native_pressure(self) -> float | None:
         """Return the pressure."""
         return get_pressure_from_here_data(self.coordinator.data, self._mode)
 
     @property
-    def humidity(self) -> float | None:
-        """Return the humidity."""
-        if (
-            humidity := get_attribute_from_here_data(self.coordinator.data, "humidity")
-        ) is not None:
-            return float(humidity)
-        return None
-
-    @property
-    def wind_speed(self) -> float | None:
+    def native_wind_speed(self) -> float | None:
         """Return the wind speed."""
         return get_wind_speed_from_here_data(self.coordinator.data)
 
@@ -125,7 +109,7 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         return get_wind_bearing_from_here_data(self.coordinator.data)
 
     @property
-    def visibility(self) -> float | None:
+    def native_visibility(self) -> float | None:
         """Return the visibility."""
         if "visibility" in SENSOR_TYPES[self._mode]:
             if (
@@ -142,35 +126,33 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
         data: list[Forecast] = []
         for offset in range(len(self.coordinator.data)):
             data.append(
-                {
-                    ATTR_FORECAST_CONDITION: get_condition_from_here_data(
+                Forecast(
+                    condition=get_condition_from_here_data(
                         self.coordinator.data, offset
                     ),
-                    ATTR_FORECAST_TIME: get_time_from_here_data(
-                        self.coordinator.data, offset
-                    ),
-                    ATTR_FORECAST_PRECIPITATION_PROBABILITY: get_precipitation_probability(
+                    datetime=get_time_from_here_data(self.coordinator.data, offset),
+                    precipitation_probability=get_precipitation_probability(
                         self.coordinator.data, self._mode, offset
                     ),
-                    ATTR_FORECAST_PRECIPITATION: calc_precipitation(
+                    native_precipitation=calc_precipitation(
                         self.coordinator.data, offset
                     ),
-                    ATTR_FORECAST_PRESSURE: get_pressure_from_here_data(
+                    native_pressure=get_pressure_from_here_data(
                         self.coordinator.data, self._mode, offset
                     ),
-                    ATTR_FORECAST_TEMP: get_high_or_default_temperature_from_here_data(
+                    native_temperature=get_high_or_default_temperature_from_here_data(
                         self.coordinator.data, self._mode, offset
                     ),
-                    ATTR_FORECAST_TEMP_LOW: get_low_or_default_temperature_from_here_data(
+                    native_templow=get_low_or_default_temperature_from_here_data(
                         self.coordinator.data, self._mode, offset
                     ),
-                    ATTR_FORECAST_WIND_BEARING: get_wind_bearing_from_here_data(
+                    wind_bearing=get_wind_bearing_from_here_data(
                         self.coordinator.data, offset
                     ),
-                    ATTR_FORECAST_WIND_SPEED: get_wind_speed_from_here_data(
+                    native_wind_speed=get_wind_speed_from_here_data(
                         self.coordinator.data, offset
                     ),
-                }
+                )
             )
         return data
 
@@ -195,7 +177,7 @@ def get_wind_bearing_from_here_data(here_data: list, offset: int = 0) -> int | N
 
 def get_time_from_here_data(here_data: list, offset: int = 0) -> str | None:
     """Return the time from here_data."""
-    if (time := get_attribute_from_here_data(here_data, "utcTime", offset)) is not None:
+    if (time := get_attribute_from_here_data(here_data, "time", offset)) is not None:
         return time
     return None
 
@@ -230,6 +212,8 @@ def get_precipitation_probability(
 
 def get_condition_from_here_data(here_data: list, offset: int = 0) -> str | None:
     """Return the condition from here_data."""
+    print(here_data)
+    print(get_attribute_from_here_data(here_data, "iconName", offset))
     return next(
         (
             k

@@ -1,10 +1,15 @@
 """Sensor platform for the HERE Destination Weather service."""
 # pyright: reportGeneralTypeIssues=false
 from __future__ import annotations
+from datetime import datetime
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
+from homeassistant.const import (
+    CONF_LATITUDE,
+    CONF_LONGITUDE,
+    CONF_NAME,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceEntryType
 from homeassistant.helpers.entity import DeviceInfo
@@ -14,7 +19,7 @@ from homeassistant.helpers.update_coordinator import (
 )
 
 from .const import DOMAIN, SENSOR_TYPES
-from .utils import convert_unit_of_measurement_if_needed, get_attribute_from_here_data
+from .utils import get_attribute_from_here_data
 
 
 async def async_setup_entry(
@@ -88,13 +93,12 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
             f"{base_name} {sensor_type} " f"{name_suffix} {self._sensor_number}"
         )
         self._attr_entity_registry_enabled_default = False
-        self._attr_native_unit_of_measurement = convert_unit_of_measurement_if_needed(
-            self.coordinator.hass.config.units.name,
+        self._attr_native_unit_of_measurement = (
             SENSOR_TYPES[sensor_type][weather_attribute]["unit_of_measurement"],
         )
 
     @property
-    def native_value(self) -> str | None:
+    def native_value(self) -> str | datetime | None:
         """Return the state of the sensor."""
         return get_attribute_from_here_data(
             self.coordinator.data,

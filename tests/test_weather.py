@@ -2,6 +2,7 @@
 from unittest.mock import patch
 
 from homeassistant.const import CONF_API_KEY, CONF_LATITUDE, CONF_LONGITUDE, CONF_NAME
+from homeassistant.helpers import entity_registry
 from homeassistant.util.unit_system import IMPERIAL_SYSTEM
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
@@ -33,7 +34,7 @@ async def test_weather(hass):
         await hass.async_block_till_done()
 
         sensor = hass.states.get("weather.here_weather_forecast_7days_simple")
-        assert sensor.state == "cloudy"
+        assert sensor.state == "snowy"
 
 
 async def test_weather_daily(hass):
@@ -53,7 +54,7 @@ async def test_weather_daily(hass):
         )
         entry.add_to_hass(hass)
 
-        registry = await hass.helpers.entity_registry.async_get_registry()
+        registry = entity_registry.async_get(hass)
 
         # Pre-create registry entries for disabled by default sensors
         registry.async_get_or_create(
@@ -69,7 +70,7 @@ async def test_weather_daily(hass):
         await hass.async_block_till_done()
 
         sensor = hass.states.get("weather.here_weather_forecast_7days")
-        assert sensor.state == "cloudy"
+        assert sensor.state == "snowy"
 
 
 async def test_weather_observation(hass):
@@ -89,7 +90,7 @@ async def test_weather_observation(hass):
         )
         entry.add_to_hass(hass)
 
-        registry = await hass.helpers.entity_registry.async_get_registry()
+        registry = entity_registry.async_get(hass)
 
         # Pre-create registry entries for disabled by default sensors
         registry.async_get_or_create(
@@ -105,4 +106,4 @@ async def test_weather_observation(hass):
         await hass.async_block_till_done()
 
         sensor = hass.states.get("weather.here_weather_observation")
-        assert sensor.state == "cloudy"
+        assert sensor.state == "snowy"
