@@ -1,61 +1,327 @@
 {
-    "observations": {
-        "location": [
-            {
-                "observation": [
-                    {
-                        "daylight": "D",
-                        "description": "Overcast. Cool.",
-                        "skyInfo": "18",
-                        "skyDescription": "Overcast",
-                        "temperature": "46.00",
-                        "temperatureDesc": "Cool",
-                        "comfort": "42.39",
-                        "highTemperature": "50.72",
-                        "lowTemperature": "39.74",
-                        "humidity": "63",
-                        "dewPoint": "34.00",
-                        "precipitation1H": "*",
-                        "precipitation3H": "*",
-                        "precipitation6H": "*",
-                        "precipitation12H": "*",
-                        "precipitation24H": "*",
-                        "precipitationDesc": "",
-                        "airInfo": "*",
-                        "airDescription": "",
-                        "windSpeed": "6.89",
-                        "windDirection": "0",
-                        "windDesc": "North",
-                        "windDescShort": "N",
-                        "barometerPressure": "29.80",
-                        "barometerTrend": "Rising",
-                        "visibility": "10.00",
-                        "snowCover": "*",
-                        "icon": "7",
-                        "iconName": "cloudy",
-                        "iconLink": "https://weather.cit.api.here.com/static/weather/icon/17.png",
-                        "ageMinutes": "46",
-                        "activeAlerts": "6",
-                        "country": "United States",
-                        "state": "New York",
-                        "city": "New York",
-                        "latitude": 40.7996,
-                        "longitude": -73.9703,
-                        "distance": 1.43,
-                        "elevation": 0.00,
-                        "utcTime": "2019-11-19T15:51:00.000-05:00"
-                    }
-                ],
-                "country": "United States",
-                "state": "New York",
-                "city": "New York",
-                "latitude": 40.79962,
-                "longitude": -73.970314,
-                "distance": 0.00,
-                "timezone": -5
-            }
-        ]
-    },
-    "feedCreation": "2019-11-19T21:37:57.279Z",
-    "metric": false
+    "observations": [
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago"
+                },
+                "location": {
+                    "lat": 41.85003,
+                    "lng": -87.65005
+                },
+                "distance": 0
+            },
+            "daylight": "night",
+            "description": "Light snow. Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -8.28,
+            "temperatureDesc": "Cold",
+            "comfort": "-16.09",
+            "highTemperature": "-3.80",
+            "lowTemperature": "-6.90",
+            "humidity": "76",
+            "dewPoint": -11.72,
+            "precipitation1H": 0,
+            "precipitationProbability": 22,
+            "precipitationDesc": "Light snow",
+            "snowFall": 0.15,
+            "windSpeed": 22.24,
+            "windDirection": 260,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "uvIndex": 0,
+            "uvDesc": "Minimal",
+            "barometerPressure": 1018.4,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 29,
+            "iconName": "light_snow",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/20.png",
+            "ageMinutes": 78,
+            "activeAlerts": 15,
+            "time": "2022-12-18T04:53:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago  Chicago Midway Airport"
+                },
+                "location": {
+                    "lat": 41.7842,
+                    "lng": -87.7553
+                },
+                "distance": 11.4
+            },
+            "daylight": "night",
+            "description": "Light snow. Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -7.78,
+            "temperatureDesc": "Cold",
+            "comfort": "-15.13",
+            "highTemperature": "*",
+            "lowTemperature": "*",
+            "humidity": "74",
+            "dewPoint": -11.72,
+            "precipitation3H": 0,
+            "precipitationDesc": "Light snow",
+            "windSpeed": 20.39,
+            "windDirection": 270,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1017.2,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 29,
+            "iconName": "light_snow",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/20.png",
+            "ageMinutes": 198,
+            "activeAlerts": 0,
+            "time": "2022-12-18T02:53:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago"
+                },
+                "location": {
+                    "lat": 41.9786,
+                    "lng": -87.9048
+                },
+                "distance": 25.5
+            },
+            "daylight": "night",
+            "description": "Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -7.78,
+            "temperatureDesc": "Cold",
+            "comfort": "-15.76",
+            "highTemperature": "*",
+            "lowTemperature": "*",
+            "humidity": "74",
+            "dewPoint": -11.72,
+            "windSpeed": 24.09,
+            "windDirection": 270,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1016.9,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 17,
+            "iconName": "cloudy",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/24.png",
+            "ageMinutes": 80,
+            "activeAlerts": 15,
+            "time": "2022-12-18T04:51:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago  Chicago"
+                },
+                "location": {
+                    "lat": 41.9797,
+                    "lng": -87.9044
+                },
+                "distance": 25.54
+            },
+            "daylight": "night",
+            "description": "Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -6.11,
+            "temperatureDesc": "Cold",
+            "comfort": "-12.68",
+            "highTemperature": "-3.28",
+            "lowTemperature": "-6.11",
+            "humidity": "74",
+            "dewPoint": -10,
+            "precipitation6H": 0,
+            "windSpeed": 18.53,
+            "windDirection": 270,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1013.8,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 17,
+            "iconName": "cloudy",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/24.png",
+            "ageMinutes": 380,
+            "activeAlerts": 15,
+            "time": "2022-12-17T23:51:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Indiana",
+                    "city": "Gary Regional"
+                },
+                "location": {
+                    "lat": 41.6163,
+                    "lng": -87.4128
+                },
+                "distance": 32.64
+            },
+            "daylight": "night",
+            "description": "Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -8,
+            "temperatureDesc": "Cold",
+            "comfort": "-15.05",
+            "highTemperature": "*",
+            "lowTemperature": "*",
+            "humidity": "79",
+            "dewPoint": -11,
+            "windSpeed": 18.53,
+            "windDirection": 250,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1016.94,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 17,
+            "iconName": "cloudy",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/24.png",
+            "ageMinutes": 86,
+            "activeAlerts": 10,
+            "time": "2022-12-18T04:45:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago / Wheeling"
+                },
+                "location": {
+                    "lat": 42.1142,
+                    "lng": -87.9015
+                },
+                "distance": 36.02
+            },
+            "daylight": "night",
+            "description": "Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -6.72,
+            "temperatureDesc": "Cold",
+            "comfort": "-13.79",
+            "highTemperature": "*",
+            "lowTemperature": "*",
+            "humidity": "71",
+            "dewPoint": -11.11,
+            "windSpeed": 20.39,
+            "windDirection": 270,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1017,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 17,
+            "iconName": "cloudy",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/24.png",
+            "ageMinutes": 79,
+            "activeAlerts": 15,
+            "time": "2022-12-18T04:52:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago"
+                },
+                "location": {
+                    "lat": 41.5349,
+                    "lng": -87.5295
+                },
+                "distance": 36.48
+            },
+            "daylight": "night",
+            "description": "Light snow. Overcast. Cold.",
+            "skyInfo": 18,
+            "skyDesc": "Overcast",
+            "temperature": -8.28,
+            "temperatureDesc": "Cold",
+            "comfort": "-16.69",
+            "highTemperature": "*",
+            "lowTemperature": "*",
+            "humidity": "80",
+            "dewPoint": -11.22,
+            "precipitationDesc": "Light snow",
+            "windSpeed": 25.95,
+            "windDirection": 270,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1017.27,
+            "barometerTrend": "Rising",
+            "visibility": 16.09,
+            "iconId": 29,
+            "iconName": "light_snow",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/20.png",
+            "ageMinutes": 36,
+            "activeAlerts": 0,
+            "time": "2022-12-18T05:35:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryCode": "USA",
+                    "countryName": "United States",
+                    "state": "Illinois",
+                    "city": "Chicago"
+                },
+                "location": {
+                    "lat": 41.6044,
+                    "lng": -88.0858
+                },
+                "distance": 45.37
+            },
+            "daylight": "night",
+            "description": "Light snow. Ice fog. Cold.",
+            "skyInfo": 23,
+            "skyDesc": "Ice fog",
+            "temperature": -9,
+            "temperatureDesc": "Cold",
+            "comfort": "-16.31",
+            "highTemperature": "*",
+            "lowTemperature": "*",
+            "humidity": "93",
+            "dewPoint": -10,
+            "precipitationDesc": "Light snow",
+            "windSpeed": 18.53,
+            "windDirection": 250,
+            "windDesc": "West",
+            "windDescShort": "W",
+            "barometerPressure": 1017.95,
+            "barometerTrend": "Rising",
+            "visibility": 8.05,
+            "iconId": 29,
+            "iconName": "light_snow",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/20.png",
+            "ageMinutes": 36,
+            "activeAlerts": 10,
+            "time": "2022-12-18T05:35:00-06:00"
+        }
+    ]
 }

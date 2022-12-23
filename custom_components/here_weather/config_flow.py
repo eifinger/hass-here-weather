@@ -20,7 +20,7 @@ async def async_validate_user_input(hass: HomeAssistant, user_input: dict) -> No
     await here_client.weather_for_coordinates(
         user_input[CONF_LATITUDE],
         user_input[CONF_LONGITUDE],
-        aiohere.WeatherProductType[DEFAULT_MODE],
+        [aiohere.WeatherProductType[DEFAULT_MODE]],
     )
 
 
