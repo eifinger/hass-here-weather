@@ -8,7 +8,7 @@ from homeassistant.util.dt import as_utc, parse_datetime
 
 def get_attribute_from_here_data(
     here_data: list, attribute_name: str, sensor_number: int = 0
-) -> str | datetime | None:
+) -> str | datetime | float | str | None:
     """Extract and convert data from HERE response or None if not found."""
     try:
         state = here_data[sensor_number][attribute_name]

@@ -1,6 +1,7 @@
 """Weather platform for the HERE Destination Weather service."""
 # pyright: reportGeneralTypeIssues=false
 from __future__ import annotations
+from datetime import datetime
 from . import HEREWeatherDataUpdateCoordinator
 
 from homeassistant.components.weather import (
@@ -85,7 +86,6 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
     @property
     def condition(self) -> str | None:
         """Return the current condition."""
-        print(self._attr_unique_id)
         return get_condition_from_here_data(self.coordinator.data)
 
     @property
@@ -117,7 +117,7 @@ class HEREDestinationWeather(CoordinatorEntity, WeatherEntity):
                     self.coordinator.data, "visibility"
                 )
             ) is not None:
-                return float(visibility)
+                return float(str(visibility))
         return None
 
     @property
@@ -162,6 +162,7 @@ def get_wind_speed_from_here_data(here_data: list, offset: int = 0) -> float | N
     if (
         wind_speed := get_attribute_from_here_data(here_data, "windSpeed", offset)
     ) is not None:
+        assert not isinstance(wind_speed, datetime)
         return float(wind_speed)
     return None
 
@@ -171,13 +172,15 @@ def get_wind_bearing_from_here_data(here_data: list, offset: int = 0) -> int | N
     if (
         wind_bearing := get_attribute_from_here_data(here_data, "windDirection", offset)
     ) is not None:
-        return int(wind_bearing)
+        assert isinstance(wind_bearing, int)
+        return wind_bearing
     return None
 
 
-def get_time_from_here_data(here_data: list, offset: int = 0) -> str | None:
+def get_time_from_here_data(here_data: list, offset: int = 0) -> datetime | None:
     """Return the time from here_data."""
     if (time := get_attribute_from_here_data(here_data, "time", offset)) is not None:
+        assert isinstance(time, datetime)
         return time
     return None
 
@@ -192,6 +195,7 @@ def get_pressure_from_here_data(
                 here_data, "barometerPressure", offset
             )
         ) is not None:
+            assert not isinstance(pressure, datetime)
             return float(pressure)
     return None
 
@@ -206,14 +210,13 @@ def get_precipitation_probability(
                 here_data, "precipitationProbability", offset
             )
         ) is not None:
-            return int(precipitation_probability)
+            assert isinstance(precipitation_probability, int)
+            return precipitation_probability
     return None
 
 
 def get_condition_from_here_data(here_data: list, offset: int = 0) -> str | None:
     """Return the condition from here_data."""
-    print(here_data)
-    print(get_attribute_from_here_data(here_data, "iconName", offset))
     return next(
         (
             k
@@ -230,6 +233,7 @@ def get_high_or_default_temperature_from_here_data(
     """Return the temperature from here_data."""
     temperature = get_attribute_from_here_data(here_data, "highTemperature", offset)
     if temperature is not None:
+        assert not isinstance(temperature, datetime)
         return float(temperature)
 
     return get_temperature_from_here_data(here_data, mode, offset)
@@ -241,6 +245,7 @@ def get_low_or_default_temperature_from_here_data(
     """Return the temperature from here_data."""
     temperature = get_attribute_from_here_data(here_data, "lowTemperature", offset)
     if temperature is not None:
+        assert not isinstance(temperature, datetime)
         return float(temperature)
     return get_temperature_from_here_data(here_data, mode, offset)
 
@@ -254,6 +259,7 @@ def get_temperature_from_here_data(
     else:
         temperature = get_attribute_from_here_data(here_data, "temperature", offset)
     if temperature is not None:
+        assert not isinstance(temperature, datetime)
         return float(temperature)
     return None
 
@@ -263,5 +269,7 @@ def calc_precipitation(here_data: list, offset: int = 0) -> float | None:
     rain_fall = get_attribute_from_here_data(here_data, "rainFall", offset)
     snow_fall = get_attribute_from_here_data(here_data, "snowFall", offset)
     if rain_fall is not None and snow_fall is not None:
+        assert not isinstance(rain_fall, datetime)
+        assert not isinstance(snow_fall, datetime)
         return float(rain_fall) + float(snow_fall)
     return None

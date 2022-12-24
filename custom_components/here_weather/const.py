@@ -167,6 +167,11 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "unit_of_measurement": None,
         "device_class": None,
     },
+    "time": {
+        "name": "UTC Time",
+        "unit_of_measurement": None,
+        "device_class": DEVICE_CLASS_TIMESTAMP,
+    },
 }
 
 NON_OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
@@ -191,11 +196,6 @@ NON_OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
         "device_class": None,
     },
     "weekday": {"name": "Week Day", "unit_of_measurement": None, "device_class": None},
-    "utcTime": {
-        "name": "UTC Time",
-        "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
-    },
     **COMMON_ATTRIBUTES,
 }
 
