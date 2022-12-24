@@ -322,6 +322,56 @@
             "ageMinutes": 36,
             "activeAlerts": 10,
             "time": "2022-12-18T05:35:00-06:00"
+        },
+        {
+            "place": {
+                "address": {
+                    "countryName": "United States",
+                    "state": "Massachusetts",
+                    "city": "Boston"
+                },
+                "location": {
+                    "lat": 42.35843,
+                    "lng": -71.05977
+                },
+                "distance": 1.4
+            },
+            "daylight": "night",
+            "description": "Passing clouds. Mild.",
+            "skyInfo": 7,
+            "skyDesc": "Passing clouds",
+            "temperature": 24.39,
+            "temperatureDesc": "Mild",
+            "comfort": 24.31,
+            "highTemperature": 31.4,
+            "lowTemperature": 24.6,
+            "humidity": 91,
+            "dewPoint": 22.78,
+            "precipitation1H": 1,
+            "precipitation3H": 2,
+            "precipitation6H": 4,
+            "precipitation12H": 5,
+            "precipitation24H": 11,
+            "precipitationProbability": 22,
+            "precipitationDesc": "Strong thunderstorms",
+            "rainFall": 11,
+            "snowFall": 0,
+            "airInfo": 7,
+            "airDesc": "Refreshing Cool",
+            "windSpeed": 14.83,
+            "windDirection": 200,
+            "windDesc": "Northwest",
+            "windDescShort": "NW",
+            "barometerPressure": 1006.1,
+            "barometerTrend": "Falling",
+            "visibility": 150,
+            "snowCover": 0,
+            "iconId": 23,
+            "iconName": "severeTstorms",
+            "iconLink": "https://weather.hereapi.com/static/weather/icon/6.png",
+            "ageMinutes": 33,
+            "activeAlerts": 13,
+            "time": "2020-10-12T01:54:00.000-04:00"
         }
     ]
 }

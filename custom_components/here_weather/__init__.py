@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import copy
 import logging
-from datetime import timedelta
+from datetime import datetime, timedelta
 from typing import Any
 
 import aiohere
@@ -109,22 +109,32 @@ def extract_data_from_payload_for_product_type(
 ) -> Any:
     """Extract the actual data from the HERE payload."""
     if product_type == aiohere.WeatherProductType.FORECAST_ASTRONOMY:
-        return astronomy_data(data["astronomyForecasts"][0])
+        return parse_time_as_utc(astronomy_data(data["astronomyForecasts"][0]))
     if product_type == aiohere.WeatherProductType.OBSERVATION:
-        return data["observations"]
+        return parse_time_as_utc(data["observations"])
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS:
-        return data["extendedDailyForecasts"][0]["forecasts"]
+        return parse_time_as_utc(data["extendedDailyForecasts"][0]["forecasts"])
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS_SIMPLE:
-        return data["dailyForecasts"][0]["forecasts"]
+        return parse_time_as_utc(data["dailyForecasts"][0]["forecasts"])
     if product_type == aiohere.WeatherProductType.FORECAST_HOURLY:
-        return data["hourlyForecasts"][0]["forecasts"]
+        return parse_time_as_utc(data["hourlyForecasts"][0]["forecasts"])
     _LOGGER.debug("Payload malformed: %s", data)
     raise UpdateFailed("Payload malformed")
 
 
-def astronomy_data(data: dict[str, Any]) -> dict[str, Any]:
+def parse_time_as_utc(
+    data: list[dict[str, str | datetime | None]]
+) -> list[dict[str, str | datetime | None]]:
+    """Parse time string to datetime objects."""
+    result = copy.deepcopy(data)
+    for element in result:
+        element["time"] = as_utc(parse_datetime(element["time"]))
+    return result
+
+
+def astronomy_data(data: dict[str, Any]) -> list[dict[str, str | datetime | None]]:
     """Restructure data for this integration."""
-    ammended_data = copy.deepcopy(data["forecasts"])
+    ammended_data: list[dict[str, str]] = copy.deepcopy(data["forecasts"])
     for element in ammended_data:
         element["city"] = data["place"]["address"]["city"]
         element["latitude"] = data["place"]["location"]["lat"]
@@ -132,15 +142,28 @@ def astronomy_data(data: dict[str, Any]) -> dict[str, Any]:
     return astronomy_data_with_utc(ammended_data)
 
 
-def astronomy_data_with_utc(data: dict[str, Any]) -> dict[str, Any]:
+def astronomy_data_with_utc(
+    data: list[dict[str, str]]
+) -> list[dict[str, str | datetime | None]]:
     """Amend astronomy data with utc fields."""
-    ammended_data = copy.deepcopy(data)
-    for element in ammended_data:
-        element["sunRise"] = combine_utc_and_local(element["sunRise"], element["time"])
-        element["sunSet"] = combine_utc_and_local(element["sunSet"], element["time"])
-        element["moonRise"] = combine_utc_and_local(
+    ammended_data: list[dict[str, str | datetime | None]] = []
+    for element in data:
+        ammended_element: dict[str, str | datetime | None] = {}
+        ammended_element["moonPhase"] = element["moonPhase"]
+        ammended_element["moonPhaseDescription"] = element["moonPhaseDescription"]
+        ammended_element["iconName"] = element["iconName"]
+        ammended_element["time"] = element["time"]
+        ammended_element["sunRise"] = combine_utc_and_local(
+            element["sunRise"], element["time"]
+        )
+        ammended_element["sunSet"] = combine_utc_and_local(
+            element["sunSet"], element["time"]
+        )
+        ammended_element["moonRise"] = combine_utc_and_local(
             element["moonRise"], element["time"]
         )
-        element["moonSet"] = combine_utc_and_local(element["moonSet"], element["time"])
-        element["time"] = as_utc(parse_datetime(element["time"]))
+        ammended_element["moonSet"] = combine_utc_and_local(
+            element["moonSet"], element["time"]
+        )
+        ammended_data.append(ammended_element)
     return ammended_data

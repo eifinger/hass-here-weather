@@ -98,7 +98,7 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
         )
 
     @property
-    def native_value(self) -> str | datetime | None:
+    def native_value(self) -> str | float | datetime | None:
         """Return the state of the sensor."""
         return get_attribute_from_here_data(
             self.coordinator.data,
