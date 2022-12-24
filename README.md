@@ -24,11 +24,22 @@ _Component to integrate with [HERE Destination Weather API][here_destination_wea
 
 ## Setup
 
-You need to register for an API key (REST & XYZ HUB API/CLI) by following the instructions [here](https://developer.here.com/tutorials/getting-here-credentials/).
+You need to register for an API key [here](https://platform.here.com/sign-up).
 
 HERE offers a Freemium Plan which includes 250,000 free Transactions per month. For the Destination Weather API, one transaction equals one request.
 
-By default HERE will deactivate your account if you exceed the free Transaction limit for the month. You can add payment details to re-enable your account as described [here](https://knowledge.here.com/csm_kb?id=public_kb_csm_details&number=KB0016434).
+By default HERE will deactivate your account if you exceed the free Transaction limit for the month.
+
+### Account Creation
+
+1. When logged in, select "Projects Manager" from the top right corner
+   ![image](https://user-images.githubusercontent.com/1481961/203731482-221d5ef2-b3c7-4e58-9624-e10d284f9353.png)
+1. Create a new Project and select it or select an existing one (I already have my "old" one)
+   ![image](https://user-images.githubusercontent.com/1481961/203731725-62a0e303-7ff8-4f6e-8edc-596612450515.png)
+1. Under "Resources->Services" click "Link a Service"
+   ![image](https://user-images.githubusercontent.com/1481961/203732143-498d871a-0a0b-44c5-9b64-db787463fb95.png)
+1. Find "HERE Destination Weather" and click "Link"
+   ![image](https://user-images.githubusercontent.com/1481961/203732310-00823ffe-7165-4aaf-8401-23688191b890.png)
 
 ## Installation
 
@@ -58,11 +69,11 @@ custom_components/here_weather/weather.py
 
 The integration provides the following four modes:
 
-* **Astronomy**: Sunrise, Sunset and Moonphase
-* **Hourly**: Weather forecast in an hourly format
-* **Daily**: Weather forecast in a dailyformat
-* **Daily Simple**: Like Daily but with high/low temp, UV-index and pressure
-* **Observation**: Detailed precipitation for the next 24h
+- **Astronomy**: Sunrise, Sunset and Moonphase
+- **Hourly**: Weather forecast in an hourly format
+- **Daily**: Weather forecast in a dailyformat
+- **Daily Simple**: Like Daily but with high/low temp, UV-index and pressure
+- **Observation**: Detailed precipitation for the next 24h
 
 By default only the Daily Simple weather and sensor entities are enabled.
 To enable more entities go to the entities tab and enable them by hand:
@@ -76,7 +87,7 @@ To enable more entities go to the entities tab and enable them by hand:
 
 If you want to contribute to this please read the [Contribution guidelines](CONTRIBUTING.md)
 
-***
+---
 
 <a href="https://www.buymeacoffee.com/eifinger" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/black_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a><br>
 
