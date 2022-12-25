@@ -99,6 +99,7 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
             [self.weather_product_type],
             language=self.language,
         )
+        _LOGGER.debug("Raw response is: %s", data)
         return extract_data_from_payload_for_product_type(
             data, self.weather_product_type
         )
