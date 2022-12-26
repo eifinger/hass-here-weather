@@ -15,84 +15,83 @@
             },
             "forecasts": [
                 {
-                    "sunRise": "07:13:00",
-                    "sunSet": "16:21:00",
-                    "moonRise": "01:37:00",
-                    "moonSet": "13:06:00",
-                    "moonPhase": "-0.338",
-                    "moonPhaseDescription": "Waning crescent",
-                    "iconName": "cw_waning_crescent",
-                    "time": "2022-12-18T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:13:00",
-                    "sunSet": "16:21:00",
-                    "moonRise": "02:46:00",
-                    "moonSet": "13:31:00",
-                    "moonPhase": "-0.243",
-                    "moonPhaseDescription": "Waning crescent",
-                    "iconName": "cw_waning_crescent",
-                    "time": "2022-12-19T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:14:00",
-                    "sunSet": "16:22:00",
-                    "moonRise": "04:00:00",
-                    "moonSet": "14:01:00",
-                    "moonPhase": "-0.155",
-                    "moonPhaseDescription": "Waning crescent",
-                    "iconName": "cw_waning_crescent",
-                    "time": "2022-12-20T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:14:00",
-                    "sunSet": "16:22:00",
-                    "moonRise": "05:18:00",
-                    "moonSet": "14:39:00",
-                    "moonPhase": "-0.083",
-                    "moonPhaseDescription": "Waning crescent",
-                    "iconName": "cw_waning_crescent",
-                    "time": "2022-12-21T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:15:00",
-                    "sunSet": "16:23:00",
-                    "moonRise": "06:37:00",
-                    "moonSet": "15:29:00",
-                    "moonPhase": "-0.030",
-                    "moonPhaseDescription": "Waning crescent",
-                    "iconName": "cw_waning_crescent",
-                    "time": "2022-12-22T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:15:00",
-                    "sunSet": "16:23:00",
-                    "moonRise": "07:51:00",
-                    "moonSet": "16:31:00",
-                    "moonPhase": "-0.004",
-                    "moonPhaseDescription": "New moon",
-                    "iconName": "cw_new_moon",
-                    "time": "2022-12-23T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:16:00",
-                    "sunSet": "16:24:00",
-                    "moonRise": "08:54:00",
-                    "moonSet": "17:46:00",
-                    "moonPhase": "0.006",
-                    "moonPhaseDescription": "New moon",
-                    "iconName": "cw_new_moon",
-                    "time": "2022-12-24T00:00:00.000-06:00"
-                },
-                {
-                    "sunRise": "07:16:00",
-                    "sunSet": "16:25:00",
-                    "moonRise": "09:45:00",
-                    "moonSet": "19:06:00",
+                    "sunRise": "08:24:00",
+                    "sunSet": "16:29:00",
+                    "moonRise": "10:46:00",
+                    "moonSet": "18:45:00",
                     "moonPhase": "0.039",
                     "moonPhaseDescription": "Waxing crescent",
                     "iconName": "cw_waxing_crescent",
-                    "time": "2022-12-25T00:00:00.000-06:00"
+                    "time": "2022-12-25T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:25:00",
+                    "sunSet": "16:30:00",
+                    "moonRise": "11:19:00",
+                    "moonSet": "20:15:00",
+                    "moonPhase": "0.099",
+                    "moonPhaseDescription": "Waxing crescent",
+                    "iconName": "cw_waxing_crescent",
+                    "time": "2022-12-26T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:25:00",
+                    "sunSet": "16:30:00",
+                    "moonRise": "11:43:00",
+                    "moonSet": "21:43:00",
+                    "moonPhase": "0.181",
+                    "moonPhaseDescription": "Waxing crescent",
+                    "iconName": "cw_waxing_crescent",
+                    "time": "2022-12-27T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:25:00",
+                    "sunSet": "16:31:00",
+                    "moonRise": "12:02:00",
+                    "moonSet": "23:06:00",
+                    "moonPhase": "0.279",
+                    "moonPhaseDescription": "Waxing crescent",
+                    "iconName": "cw_waxing_crescent",
+                    "time": "2022-12-28T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:25:00",
+                    "sunSet": "16:32:00",
+                    "moonRise": "12:17:00",
+                    "moonPhase": "0.385",
+                    "moonPhaseDescription": "Waxing crescent",
+                    "iconName": "cw_waxing_crescent",
+                    "time": "2022-12-29T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:25:00",
+                    "sunSet": "16:33:00",
+                    "moonRise": "12:31:00",
+                    "moonSet": "00:25:00",
+                    "moonPhase": "0.494",
+                    "moonPhaseDescription": "First Quarter",
+                    "iconName": "cw_first_qtr",
+                    "time": "2022-12-30T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:25:00",
+                    "sunSet": "16:34:00",
+                    "moonRise": "12:46:00",
+                    "moonSet": "01:41:00",
+                    "moonPhase": "0.600",
+                    "moonPhaseDescription": "Waxing gibbous",
+                    "iconName": "cw_waxing_gibbous",
+                    "time": "2022-12-31T00:00:00.000+01:00"
+                },
+                {
+                    "sunRise": "08:26:00",
+                    "sunSet": "16:35:00",
+                    "moonRise": "13:02:00",
+                    "moonSet": "02:56:00",
+                    "moonPhase": "0.698",
+                    "moonPhaseDescription": "Waxing gibbous",
+                    "iconName": "cw_waxing_gibbous",
+                    "time": "2023-01-01T00:00:00.000+01:00"
                 }
             ]
         }
