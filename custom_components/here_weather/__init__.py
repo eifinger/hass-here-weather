@@ -135,36 +135,26 @@ def parse_time_as_utc(
 
 def astronomy_data(data: dict[str, Any]) -> list[dict[str, str | datetime | None]]:
     """Restructure data for this integration."""
-    ammended_data: list[dict[str, str]] = copy.deepcopy(data["forecasts"])
+    ammended_data: list[dict[str, str | datetime | None]] = copy.deepcopy(
+        data["forecasts"]
+    )
     for element in ammended_data:
         element["city"] = data["place"]["address"]["city"]
         element["latitude"] = data["place"]["location"]["lat"]
         element["longitude"] = data["place"]["location"]["lng"]
-    return astronomy_data_with_utc(ammended_data)
+        element["sunRise"] = astronomy_data_with_utc("sunRise", element)
+        element["sunSet"] = astronomy_data_with_utc("sunSet", element)
+        element["moonRise"] = astronomy_data_with_utc("moonRise", element)
+        element["moonSet"] = astronomy_data_with_utc("moonSet", element)
+    return ammended_data
 
 
 def astronomy_data_with_utc(
-    data: list[dict[str, str]]
-) -> list[dict[str, str | datetime | None]]:
-    """Amend astronomy data with utc fields."""
-    ammended_data: list[dict[str, str | datetime | None]] = []
-    for element in data:
-        ammended_element: dict[str, str | datetime | None] = {}
-        ammended_element["moonPhase"] = element["moonPhase"]
-        ammended_element["moonPhaseDescription"] = element["moonPhaseDescription"]
-        ammended_element["iconName"] = element["iconName"]
-        ammended_element["time"] = element["time"]
-        ammended_element["sunRise"] = combine_utc_and_local(
-            element["sunRise"], element["time"]
-        )
-        ammended_element["sunSet"] = combine_utc_and_local(
-            element["sunSet"], element["time"]
-        )
-        ammended_element["moonRise"] = combine_utc_and_local(
-            element["moonRise"], element["time"]
-        )
-        ammended_element["moonSet"] = combine_utc_and_local(
-            element["moonSet"], element["time"]
-        )
-        ammended_data.append(ammended_element)
-    return ammended_data
+    key: str, data: dict[str, str | datetime | None]
+) -> str | datetime | None:
+    """Transform astronomy data to utc fields."""
+    if (value := data.get(key)) is not None:
+        assert isinstance(value, str)
+        assert isinstance(data["time"], str)
+        return combine_utc_and_local(value, data["time"])
+    return None
