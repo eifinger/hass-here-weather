@@ -41,6 +41,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up here_weather from a config entry."""
     if hass.data.get(DOMAIN) is None:
         _LOGGER.info(STARTUP_MESSAGE)
+    migrate_entry_v1(hass, entry)
     here_weather_coordinators = {}
     for mode in CONF_MODES:
         coordinator = HEREWeatherDataUpdateCoordinator(hass, entry, mode)
@@ -60,6 +61,15 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok  # type: ignore
+
+
+def migrate_entry_v1(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    if (language := entry.options.get(CONF_LANGUAGE)) is not None:
+        if language not in LANGUAGES.keys():
+            hass.config_entries.async_update_entry(entry, options={})
+            _LOGGER.warning(
+                "The configured language was reset. Please configure it again."
+            )
 
 
 class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
