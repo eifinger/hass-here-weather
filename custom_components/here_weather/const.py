@@ -3,10 +3,6 @@ from __future__ import annotations
 
 from homeassistant.const import (
     DEGREE,
-    DEVICE_CLASS_HUMIDITY,
-    DEVICE_CLASS_PRESSURE,
-    DEVICE_CLASS_TEMPERATURE,
-    DEVICE_CLASS_TIMESTAMP,
     LENGTH_CENTIMETERS,
     LENGTH_KILOMETERS,
     PERCENTAGE,
@@ -14,6 +10,7 @@ from homeassistant.const import (
     SPEED_KILOMETERS_PER_HOUR,
     TEMP_CELSIUS,
 )
+from homeassistant.components.sensor import SensorDeviceClass
 
 NAME = "HERE Destination Weather"
 DOMAIN = "here_weather"
@@ -53,22 +50,22 @@ ASTRONOMY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "sunRise": {
         "name": "Sunrise",
         "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
+        "device_class": SensorDeviceClass.TIMESTAMP,
     },
     "sunSet": {
         "name": "Sunset",
         "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
+        "device_class": SensorDeviceClass.TIMESTAMP,
     },
     "moonRise": {
         "name": "Moonrise",
         "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
+        "device_class": SensorDeviceClass.TIMESTAMP,
     },
     "moonSet": {
         "name": "Moonset",
         "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
+        "device_class": SensorDeviceClass.TIMESTAMP,
     },
     "moonPhase": {
         "name": "Moon Phase",
@@ -90,7 +87,7 @@ ASTRONOMY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "time": {
         "name": "UTC Time",
         "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
+        "device_class": SensorDeviceClass.TIMESTAMP,
     },
 }
 
@@ -115,17 +112,17 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "comfort": {
         "name": "Comfort",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "humidity": {
         "name": "Humidity",
         "unit_of_measurement": PERCENTAGE,
-        "device_class": DEVICE_CLASS_HUMIDITY,
+        "device_class": SensorDeviceClass.HUMIDITY,
     },
     "dewPoint": {
         "name": "Dew Point",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "precipitationProbability": {
         "name": "Precipitation Probability",
@@ -170,7 +167,7 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "time": {
         "name": "UTC Time",
         "unit_of_measurement": None,
-        "device_class": DEVICE_CLASS_TIMESTAMP,
+        "device_class": SensorDeviceClass.TIMESTAMP,
     },
 }
 
@@ -203,7 +200,7 @@ HOURLY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "temperature": {
         "name": "Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "airInfo": {"name": "Air Info", "unit_of_measurement": None, "device_class": None},
     "visibility": {
@@ -218,12 +215,12 @@ DAILY_SIMPLE_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "highTemperature": {
         "name": "High Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "lowTemperature": {
         "name": "Low Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "beaufortScale": {
         "name": "Beaufort Scale",
@@ -244,7 +241,7 @@ DAILY_SIMPLE_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "barometerPressure": {
         "name": "Barometric Pressure",
         "unit_of_measurement": PRESSURE_MBAR,
-        "device_class": DEVICE_CLASS_PRESSURE,
+        "device_class": SensorDeviceClass.PRESSURE,
     },
     **NON_OBSERVATION_ATTRIBUTES,
 }
@@ -258,7 +255,7 @@ DAILY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "temperature": {
         "name": "Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "beaufortScale": {
         "name": "Beaufort Scale",
@@ -282,17 +279,17 @@ OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "temperature": {
         "name": "Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "highTemperature": {
         "name": "High Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "lowTemperature": {
         "name": "Low Temperature",
         "unit_of_measurement": TEMP_CELSIUS,
-        "device_class": DEVICE_CLASS_TEMPERATURE,
+        "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "precipitation1H": {
         "name": "Precipitation Over 1 Hour",
@@ -322,7 +319,7 @@ OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "barometerPressure": {
         "name": "Barometric Pressure",
         "unit_of_measurement": PRESSURE_MBAR,
-        "device_class": DEVICE_CLASS_PRESSURE,
+        "device_class": SensorDeviceClass.PRESSURE,
     },
     "barometerTrend": {
         "name": "Barometric Pressure Trend",
