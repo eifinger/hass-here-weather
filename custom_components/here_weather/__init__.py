@@ -49,7 +49,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         here_weather_coordinators[mode] = coordinator
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = here_weather_coordinators
 
-    hass.config_entries.async_setup_platforms(entry, PLATFORMS)
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
 

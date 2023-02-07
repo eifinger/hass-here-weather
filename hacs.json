@@ -1,5 +1,5 @@
 {
     "name": "HERE Destination Weather",
     "hacs": "1.6.0",
-    "homeassistant": "2021.12.0"
+    "homeassistant": "2023.2.0"
 }
