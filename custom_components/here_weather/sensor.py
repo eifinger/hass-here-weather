@@ -93,9 +93,10 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
             f"{base_name} {sensor_type} " f"{name_suffix} {self._sensor_number}"
         )
         self._attr_entity_registry_enabled_default = False
-        self._attr_native_unit_of_measurement = (
-            SENSOR_TYPES[sensor_type][weather_attribute]["unit_of_measurement"],
-        )
+        if (
+            uom := SENSOR_TYPES[sensor_type][weather_attribute]["unit_of_measurement"]
+        ) is not None:
+            self._attr_native_unit_of_measurement = uom
 
     @property
     def native_value(self) -> str | float | datetime | None:

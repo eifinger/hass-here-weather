@@ -13,7 +13,7 @@
     "aiohere"
   ],
   "requirements": [
-    "aiohere==2.0.2"
+    "aiohere==2.2.0"
   ],
   "version": "2.1.5"
 }

@@ -5,9 +5,9 @@ from __future__ import annotations
 import copy
 import logging
 from datetime import datetime, timedelta
-from typing import Any
 
 import aiohere
+from aiohere.model.astronomy import AstronomyForecasts
 import async_timeout
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
@@ -91,7 +91,9 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
         )
 
-    async def _async_update_data(self) -> Any:
+    async def _async_update_data(
+        self,
+    ) -> list[dict[str, str | float | datetime | None]]:
         """Perform data update."""
         try:
             async with async_timeout.timeout(10):
@@ -101,7 +103,7 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
                 f"Unable to fetch data from HERE: {error.args[0]}"
             ) from error
 
-    async def _get_data(self) -> Any:
+    async def _get_data(self) -> list[dict[str, str | float | datetime | None]]:
         """Get the latest data from HERE."""
         data = await self.here_client.weather_for_coordinates(
             self.latitude,
@@ -116,26 +118,31 @@ class HEREWeatherDataUpdateCoordinator(DataUpdateCoordinator):
 
 
 def extract_data_from_payload_for_product_type(
-    data: dict[str, Any], product_type: aiohere.WeatherProductType
-) -> Any:
+    data: aiohere.AstronomyResponse
+    | aiohere.DailySimpleResponse
+    | aiohere.DailyResponse
+    | aiohere.HourlyResponse
+    | aiohere.ObservationResponse,
+    product_type: aiohere.WeatherProductType,
+) -> list[dict[str, str | float | datetime | None]]:
     """Extract the actual data from the HERE payload."""
     if product_type == aiohere.WeatherProductType.FORECAST_ASTRONOMY:
-        return parse_time_as_utc(astronomy_data(data["astronomyForecasts"][0]))
+        return parse_time_as_utc(astronomy_data(data["astronomyForecasts"][0]))  # type: ignore[typeddict-item]
     if product_type == aiohere.WeatherProductType.OBSERVATION:
-        return parse_time_as_utc(data["observations"])
+        return parse_time_as_utc(data["observations"])  # type: ignore[typeddict-item, arg-type]
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS:
-        return parse_time_as_utc(data["extendedDailyForecasts"][0]["forecasts"])
+        return parse_time_as_utc(data["extendedDailyForecasts"][0]["forecasts"])  # type: ignore[typeddict-item, arg-type]
     if product_type == aiohere.WeatherProductType.FORECAST_7DAYS_SIMPLE:
-        return parse_time_as_utc(data["dailyForecasts"][0]["forecasts"])
+        return parse_time_as_utc(data["dailyForecasts"][0]["forecasts"])  # type: ignore[typeddict-item, arg-type]
     if product_type == aiohere.WeatherProductType.FORECAST_HOURLY:
-        return parse_time_as_utc(data["hourlyForecasts"][0]["forecasts"])
+        return parse_time_as_utc(data["hourlyForecasts"][0]["forecasts"])  # type: ignore[typeddict-item, arg-type]
     _LOGGER.debug("Payload malformed: %s", data)
     raise UpdateFailed("Payload malformed")
 
 
 def parse_time_as_utc(
-    data: list[dict[str, str | datetime | None]]
-) -> list[dict[str, str | datetime | None]]:
+    data: list[dict[str, str | float | datetime | None]]
+) -> list[dict[str, str | float | datetime | None]]:
     """Parse time string to datetime objects."""
     result = copy.deepcopy(data)
     for element in result:
@@ -143,10 +150,12 @@ def parse_time_as_utc(
     return result
 
 
-def astronomy_data(data: dict[str, Any]) -> list[dict[str, str | datetime | None]]:
+def astronomy_data(
+    data: AstronomyForecasts,
+) -> list[dict[str, str | float | datetime | None]]:
     """Restructure data for this integration."""
-    ammended_data: list[dict[str, str | datetime | None]] = copy.deepcopy(
-        data["forecasts"]
+    ammended_data: list[dict[str, str | float | datetime | None]] = copy.deepcopy(
+        data["forecasts"]  # type: ignore[arg-type]
     )
     for element in ammended_data:
         element["city"] = data["place"]["address"]["city"]
@@ -160,7 +169,7 @@ def astronomy_data(data: dict[str, Any]) -> list[dict[str, str | datetime | None
 
 
 def astronomy_data_with_utc(
-    key: str, data: dict[str, str | datetime | None]
+    key: str, data: dict[str, str | float | datetime | None]
 ) -> str | datetime | None:
     """Transform astronomy data to utc fields."""
     if (value := data.get(key)) is not None:
