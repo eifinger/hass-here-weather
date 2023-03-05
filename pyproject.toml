@@ -26,7 +26,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-aiohere = "^2.1.0"
+aiohere = "^2.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"

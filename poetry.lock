@@ -2,14 +2,14 @@
 
 [[package]]
 name = "aiohere"
-version = "2.1.0"
+version = "2.2.0"
 description = "Asynchronous Python client for the HERE API"
 category = "main"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "aiohere-2.1.0-py3-none-any.whl", hash = "sha256:a7e1fabb22f294ecbdba34e3c8a01ab5f530c4cb4fdb9a57976e2c95d5b390f5"},
-    {file = "aiohere-2.1.0.tar.gz", hash = "sha256:a4d93abf4f5174f1420b92d138f93f372e26b65471dd2c610350855d8c8fded4"},
+    {file = "aiohere-2.2.0-py3-none-any.whl", hash = "sha256:14147b7f553ca0b5ea4d1afeb13430a785ba052ef6340c1a4940ed9efcaa96f1"},
+    {file = "aiohere-2.2.0.tar.gz", hash = "sha256:74dd9994e3f60af5e702f4ac534ade7d6ddeeea245fac9d5dc89bc29a92e83c6"},
 ]
 
 [package.dependencies]
@@ -1612,14 +1612,14 @@ test = ["covdefaults (>=2.2.2)", "diff-cover (>=7.4)", "pip (>=23)", "pytest (>=
 
 [[package]]
 name = "platformdirs"
-version = "3.0.0"
+version = "3.1.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "platformdirs-3.0.0-py3-none-any.whl", hash = "sha256:b1d5eb14f221506f50d6604a561f4c5786d9e80355219694a1b244bcd96f4567"},
-    {file = "platformdirs-3.0.0.tar.gz", hash = "sha256:8a1228abb1ef82d788f74139988b137e78692984ec7b08eaa6c65f1723af28f9"},
+    {file = "platformdirs-3.1.0-py3-none-any.whl", hash = "sha256:13b08a53ed71021350c9e300d4ea8668438fb0046ab3937ac9a29913a1a1350a"},
+    {file = "platformdirs-3.1.0.tar.gz", hash = "sha256:accc3665857288317f32c7bebb5a8e482ba717b474f3fc1d18ca7f9214be0cef"},
 ]
 
 [package.extras]
@@ -2725,4 +2725,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3c700c7cce4cf3a771026029943e4753e091175ced5bf2ce7e852ac591cf9f4a"
+content-hash = "4c902645635ba62543daa6abe98d968041237db71284fa55c21c03e07fcb6741"
