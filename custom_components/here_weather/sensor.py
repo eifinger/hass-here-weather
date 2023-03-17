@@ -59,9 +59,6 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
         name_suffix = SENSOR_TYPES[sensor_type][weather_attribute]["name"]
         self._sensor_number = sensor_number
         self._weather_attribute = weather_attribute
-        self._attr_device_class = SENSOR_TYPES[sensor_type][weather_attribute][
-            "device_class"
-        ]
         self._attr_device_info = DeviceInfo(
             identifiers={
                 (
@@ -97,6 +94,10 @@ class HEREDestinationWeatherSensor(CoordinatorEntity, SensorEntity):
             uom := SENSOR_TYPES[sensor_type][weather_attribute]["unit_of_measurement"]
         ) is not None:
             self._attr_native_unit_of_measurement = uom
+        if (
+            device_class := SENSOR_TYPES[sensor_type][weather_attribute]["device_class"]
+        ) is not None:
+            self._attr_device_class = device_class
 
     @property
     def native_value(self) -> str | float | datetime | None:
