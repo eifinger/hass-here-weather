@@ -72,6 +72,7 @@ version_source = "tag"
 version_toml = "pyproject.toml:tool.poetry.version"
 version_pattern = "custom_components/here_weather/manifest.json:\"version\": \"{version}\""
 version_variable = "custom_components/here_weather/const.py:VERSION"
+commit_subject = "chore(release): {version}"
 build_command = false
 upload_to_repository = false
 upload_to_release = false
