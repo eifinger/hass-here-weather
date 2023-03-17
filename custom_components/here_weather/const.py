@@ -3,12 +3,11 @@ from __future__ import annotations
 
 from homeassistant.const import (
     DEGREE,
-    LENGTH_CENTIMETERS,
-    LENGTH_KILOMETERS,
+    UnitOfLength,
     PERCENTAGE,
-    PRESSURE_MBAR,
-    SPEED_KILOMETERS_PER_HOUR,
-    TEMP_CELSIUS,
+    UnitOfPressure,
+    UnitOfSpeed,
+    UnitOfTemperature,
 )
 from homeassistant.components.sensor import SensorDeviceClass
 
@@ -111,7 +110,7 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "comfort": {
         "name": "Comfort",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "humidity": {
@@ -121,7 +120,7 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "dewPoint": {
         "name": "Dew Point",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "precipitationProbability": {
@@ -136,7 +135,7 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "windSpeed": {
         "name": "Wind Speed",
-        "unit_of_measurement": SPEED_KILOMETERS_PER_HOUR,
+        "unit_of_measurement": UnitOfSpeed.KILOMETERS_PER_HOUR,
         "device_class": None,
     },
     "windDirection": {
@@ -146,12 +145,12 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "windDesc": {
         "name": "Wind Description",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "windDescShort": {
         "name": "Wind Description Short",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "iconName": {
@@ -174,12 +173,12 @@ COMMON_ATTRIBUTES: dict[str, dict[str, str | None]] = {
 NON_OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "rainFall": {
         "name": "Rain Fall",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "snowFall": {
         "name": "Snow Fall",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "precipitationProbability": {
@@ -199,13 +198,13 @@ NON_OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
 HOURLY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "temperature": {
         "name": "Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "airInfo": {"name": "Air Info", "unit_of_measurement": None, "device_class": None},
     "visibility": {
         "name": "Visibility",
-        "unit_of_measurement": LENGTH_KILOMETERS,
+        "unit_of_measurement": UnitOfLength.KILOMETERS,
         "device_class": None,
     },
     **NON_OBSERVATION_ATTRIBUTES,
@@ -214,12 +213,12 @@ HOURLY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
 DAILY_SIMPLE_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "highTemperature": {
         "name": "High Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "lowTemperature": {
         "name": "Low Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "beaufortScale": {
@@ -240,7 +239,7 @@ DAILY_SIMPLE_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "barometerPressure": {
         "name": "Barometric Pressure",
-        "unit_of_measurement": PRESSURE_MBAR,
+        "unit_of_measurement": UnitOfPressure.MBAR,
         "device_class": SensorDeviceClass.PRESSURE,
     },
     **NON_OBSERVATION_ATTRIBUTES,
@@ -254,7 +253,7 @@ DAILY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "temperature": {
         "name": "Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "beaufortScale": {
@@ -269,7 +268,7 @@ DAILY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "visibility": {
         "name": "Visibility",
-        "unit_of_measurement": LENGTH_KILOMETERS,
+        "unit_of_measurement": UnitOfLength.KILOMETERS,
         "device_class": None,
     },
     **NON_OBSERVATION_ATTRIBUTES,
@@ -278,47 +277,47 @@ DAILY_ATTRIBUTES: dict[str, dict[str, str | None]] = {
 OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     "temperature": {
         "name": "Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "highTemperature": {
         "name": "High Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "lowTemperature": {
         "name": "Low Temperature",
-        "unit_of_measurement": TEMP_CELSIUS,
+        "unit_of_measurement": UnitOfTemperature.CELSIUS,
         "device_class": SensorDeviceClass.TEMPERATURE,
     },
     "precipitation1H": {
         "name": "Precipitation Over 1 Hour",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "precipitation3H": {
         "name": "Precipitation Over 3 Hours",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "precipitation6H": {
         "name": "Precipitation Over 6 Hours",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "precipitation12H": {
         "name": "Precipitation Over 12 Hours",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "precipitation24H": {
         "name": "Precipitation Over 24 Hours",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "barometerPressure": {
         "name": "Barometric Pressure",
-        "unit_of_measurement": PRESSURE_MBAR,
+        "unit_of_measurement": UnitOfPressure.MBAR,
         "device_class": SensorDeviceClass.PRESSURE,
     },
     "barometerTrend": {
@@ -328,12 +327,12 @@ OBSERVATION_ATTRIBUTES: dict[str, dict[str, str | None]] = {
     },
     "visibility": {
         "name": "Visibility",
-        "unit_of_measurement": LENGTH_KILOMETERS,
+        "unit_of_measurement": UnitOfLength.KILOMETERS,
         "device_class": None,
     },
     "snowCover": {
         "name": "Snow Cover",
-        "unit_of_measurement": LENGTH_CENTIMETERS,
+        "unit_of_measurement": UnitOfLength.CENTIMETERS,
         "device_class": None,
     },
     "activeAlerts": {
