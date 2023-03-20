@@ -15,5 +15,5 @@
   "requirements": [
     "aiohere==2.2.0"
   ],
-  "version": "2.1.5"
+  "version": "4.0.7"
 }

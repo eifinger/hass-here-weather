@@ -13,7 +13,7 @@ from homeassistant.components.sensor import SensorDeviceClass
 
 NAME = "HERE Destination Weather"
 DOMAIN = "here_weather"
-VERSION = "2.1.5"
+VERSION = "4.0.7"
 ISSUE_URL = "https://github.com/eifinger/hass-here-weather/issues"
 
 STARTUP_MESSAGE = f"""

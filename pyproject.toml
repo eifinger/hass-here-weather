@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "hass-here-weather"
-version = "2.1.5"
+version = "4.0.7"
 description = "Homeassistant Custom Component for HERE Destination Weather API"
 license = "MIT"
 authors = ["Kevin Stillhammer <kevin.stillhammer@gmail.com>"]
