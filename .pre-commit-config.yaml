@@ -68,7 +68,11 @@ repos:
         name: ✅ Check code for common misspellings
         language: system
         types: [text]
-        exclude: ^poetry\.lock$
+        exclude: |
+          (?x)^(
+              poetry.lock|
+              CHANGELOG.md
+          )$
         entry: poetry run codespell --ignore-words=.codespell
       - id: debug-statements
         name: 🪵  Debug Statements and imports (Python)
