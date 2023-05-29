@@ -992,14 +992,14 @@ files = [
 
 [[package]]
 name = "homeassistant"
-version = "2023.5.2"
+version = "2023.5.4"
 description = "Open-source home automation platform running on Python 3."
 category = "dev"
 optional = false
 python-versions = ">=3.10.0"
 files = [
-    {file = "homeassistant-2023.5.2-py3-none-any.whl", hash = "sha256:33f8325195993cbbfd749fa4f920520f26c9262fa49adc1efe53df3e8b8e8e24"},
-    {file = "homeassistant-2023.5.2.tar.gz", hash = "sha256:bc10d8367c31fbd7e389590c7a50e8683b58c01284ab90626cb12cf22c08205a"},
+    {file = "homeassistant-2023.5.4-py3-none-any.whl", hash = "sha256:8f69d42e9bbbad44799843525064fd8e156c2306d693dd89a85eba16144220be"},
+    {file = "homeassistant-2023.5.4.tar.gz", hash = "sha256:99189128c69f4648003ac847ff98baca3dfbf451336605e191d90ae79eec31a4"},
 ]
 
 [package.dependencies]
@@ -1014,7 +1014,7 @@ certifi = ">=2021.5.30"
 ciso8601 = "2.3.0"
 cryptography = "40.0.2"
 home-assistant-bluetooth = "1.10.0"
-httpx = "0.24.0"
+httpx = "0.24.1"
 ifaddr = "0.1.7"
 jinja2 = "3.1.2"
 lru-dict = "1.1.8"
@@ -1055,14 +1055,14 @@ socks = ["socksio (>=1.0.0,<2.0.0)"]
 
 [[package]]
 name = "httpx"
-version = "0.24.0"
+version = "0.24.1"
 description = "The next generation HTTP client."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "httpx-0.24.0-py3-none-any.whl", hash = "sha256:447556b50c1921c351ea54b4fe79d91b724ed2b027462ab9a329465d147d5a4e"},
-    {file = "httpx-0.24.0.tar.gz", hash = "sha256:507d676fc3e26110d41df7d35ebd8b3b8585052450f4097401c9be59d928c63e"},
+    {file = "httpx-0.24.1-py3-none-any.whl", hash = "sha256:06781eb9ac53cde990577af654bd990a4949de37a28bdb4a230d434f3a30b9bd"},
+    {file = "httpx-0.24.1.tar.gz", hash = "sha256:5853a43053df830c20f8110c5e69fe44d035d850b2dfe795e196f00fdb774bdd"},
 ]
 
 [package.dependencies]
@@ -1892,20 +1892,20 @@ pytest = ">=3.6"
 
 [[package]]
 name = "pytest-homeassistant-custom-component"
-version = "0.13.30"
+version = "0.13.32"
 description = "Experimental package to automatically extract test plugins for Home Assistant custom components"
 category = "dev"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "pytest-homeassistant-custom-component-0.13.30.tar.gz", hash = "sha256:bfffd97e346ef8cb8c83318d3a0945943418aa4d905c1dc6ca673a397031e533"},
-    {file = "pytest_homeassistant_custom_component-0.13.30-py3-none-any.whl", hash = "sha256:4f1714abcd165e44a8ecd206ddec60e8210e3166b360e6bcf380362c22216c27"},
+    {file = "pytest-homeassistant-custom-component-0.13.32.tar.gz", hash = "sha256:e4acec37305201a02a19950c3f2d74269798d5c9ee840c988801493695c8415a"},
+    {file = "pytest_homeassistant_custom_component-0.13.32-py3-none-any.whl", hash = "sha256:281093b4f7219f2bf9beca30c36b398cc65a62aa35e186533a09637ae5ab1f42"},
 ]
 
 [package.dependencies]
 coverage = "7.2.3"
 freezegun = "1.2.2"
-homeassistant = "2023.5.2"
+homeassistant = "2023.5.4"
 mock-open = "1.4.0"
 numpy = "1.23.2"
 paho-mqtt = "1.6.1"
@@ -2228,7 +2228,8 @@ files = [
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-win32.whl", hash = "sha256:763d65baa3b952479c4e972669f679fe490eee058d5aa85da483ebae2009d231"},
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-win_amd64.whl", hash = "sha256:d000f258cf42fec2b1bbf2863c61d7b8918d31ffee905da62dede869254d3b8a"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:045e0626baf1c52e5527bd5db361bc83180faaba2ff586e763d3d5982a876a9e"},
-    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_12_6_arm64.whl", hash = "sha256:721bc4ba4525f53f6a611ec0967bdcee61b31df5a56801281027a3a6d1c2daf5"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_13_0_arm64.whl", hash = "sha256:1a6391a7cabb7641c32517539ca42cf84b87b667bad38b78d4d42dd23e957c81"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-manylinux2014_aarch64.whl", hash = "sha256:9c7617df90c1365638916b98cdd9be833d31d337dbcd722485597b43c4a215bf"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:41d0f1fa4c6830176eef5b276af04c89320ea616655d01327d5ce65e50575c94"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win32.whl", hash = "sha256:f6d3d39611ac2e4f62c3128a9eed45f19a6608670c5a2f4f07f24e8de3441d38"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win_amd64.whl", hash = "sha256:da538167284de58a52109a9b89b8f6a53ff8437dd6dc26d33b57bf6699153122"},
@@ -2721,4 +2722,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "55df917816bc72db3b9e44a59a0257c9566dd740602f56e7f34af708336ba7c6"
+content-hash = "680121e525b1abf5a9c26d20e9ddf77d28ff86d21b30243ed8c56ea33dcd6908"
